@@ -1,6 +1,9 @@
 <?php
 
+
+use App\Http\Livewire\Dashboard\DashboardComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\TwoFactorComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['twofactor'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
             ->name('home');
+        Route::get('/dashboard', DashboardComponent::class)
+            ->name('dashboard');
     });
 });
