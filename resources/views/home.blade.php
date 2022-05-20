@@ -14,7 +14,7 @@
                         </div>
                     @endif
                         <div class="alert alert-danger" role="alert">
-                            {{ request()->getClientIp() }}
+                            {{ dd(Auth::user()) }}
                         </div>
 
                     {{ __('You are logged in!') }}
