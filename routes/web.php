@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::post('/login-authenticate',[\App\Http\Controllers\Auth\LoginController::class,'authenticate'])->name('login.authentication.manual');
 Route::middleware('auth')->group(function () {
     Route::get('/twofactor', TwoFactorComponent::class)
         ->name('twofactor');
