@@ -53,6 +53,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'max:255'],
+            'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string','max:2048'],
+            'profession' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -65,9 +70,35 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'userid' => $this->generateID(new User(),'userid',4,'COF'),
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'username' => $data['username'],
+            'phone' => $data['phone'],
+            'country' => $data['country'],
+            'description' => $data['description'],
+            'profession' => $data['profession'],
+            'status' => '1',
         ]);
+    }
+    public function generateID($model, $trow, $length = 4, $prefix){
+        $data = $model::orderBy('id','desc')->first();
+        if(!$data){
+            $og_length = $length;
+            $last_number ='';
+        }else{
+            $code = substr($data->$trow,strlen($prefix)+1);
+            $actial_last_number = ($code/1)*1;
+            $increment_last_number = $actial_last_number+1;
+            $last_number_length = strlen($increment_last_number);
+            $og_length= $length-$last_number_length;
+            $last_number= $increment_last_number;
+        }
+        $zeros = '';
+        for($i=0;$i<$og_length;$i++){
+            $zeros.='0';
+        }
+        return $prefix.'-'.$zeros.$last_number;
     }
 }
