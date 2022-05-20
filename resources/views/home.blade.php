@@ -13,6 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                        <div class="alert alert-danger" role="alert">
+                            {{ request()->getClientIp() }}
+                        </div>
 
                     {{ __('You are logged in!') }}
                 </div>
