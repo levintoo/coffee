@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'username' => ['required', 'string', 'max:255'],
-            'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10', 'max:255'],
+            'phone' => ['required','regex:/^[0-9]+$/','min:9', 'max:10', 'unique:users'],
             'country' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string','max:2048'],
             'profession' => ['required', 'string', 'max:255'],
@@ -69,13 +69,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $number = substr($data['phone'], 0, 1);
+        if($number != '0')
+        {
+            $number = $data['phone'];
+        }else{
+            $number = substr($data['phone'] , -9);
+        }
         return User::create([
             'userid' => $this->generateID(new User(),'userid',4,'COF'),
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'username' => $data['username'],
-            'phone' => $data['phone'],
+            'phone' => $number,
             'country' => $data['country'],
             'description' => $data['description'],
             'profession' => $data['profession'],
