@@ -45,6 +45,7 @@
                             <label for="phone">{{ __('Phone') }}</label>
 
                             <div class="input-group">
+                                <span class="input-group-text text-muted">+254</span>
 
                                 <input id="phone" type="text"
                                        class="form-control @error('phone') is-invalid @enderror" name="phone"
@@ -64,10 +65,10 @@
 
                             <div class="input-group">
 
-                                <input id="country" type="text"
-                                       class="form-control @error('country') is-invalid @enderror" name="country"
-                                       value="{{ old('country') }}" required autocomplete="country" autofocus>
-
+                                <select id="country" type="text"
+                                       class="form-control @error('country') is-invalid @enderror" name="country" required autocomplete="country" autofocus>
+                                    <option value="kenya">Kenya</option>
+                                </select>
                                 @error('country')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
