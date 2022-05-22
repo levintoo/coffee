@@ -15,38 +15,44 @@ class TwoFactorComponent extends Component
     public function mount()
     {
         if (Session::has('twofactor' . md5(Auth::user()->name . Auth::user()->email))) {
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         }
     }
 
     public function render()
     {
-        return view('livewire.two-factor-component')->layout('layouts.dashboard');
+        return view('livewire.two-factor-component')->layout('layouts.guest');
     }
 
     public function updated($updated)
     {
         $this->validateOnly($updated, [
-            'otp' => 'min:6',
+            'otp' => 'required|numeric|min:4',
         ]);
     }
+
     public function validateOtp()
     {
         $this->validate([
-            'otp' => 'required|min:6',
+            'otp' => 'required|numeric|min:4',
         ]);
-        $otp = $this->generate(Auth::user()->id);
-        $response = $this->validateotps(Auth::user()->id, $otp->token);
-        Session::flash('status', $response->message);
+        $response = $this->validateotps(Auth::user()->id, $this->otp);
 
-        $twofactoridentifier = ('twofactor' . md5(Auth::user()->name . Auth::user()->email));
-        session()->put($twofactoridentifier, $twofactoridentifier);
-        return redirect()->route('home');
+        if($response->status == "true") {
+            $twofactoridentifier = ('twofactor' . md5(Auth::user()->name . Auth::user()->email));
+            session()->put($twofactoridentifier, $twofactoridentifier);
+            return redirect()->route('dashboard');
+        }
+        else{
+            session::flash('status', $response->message);
+        }
     }
+
     protected static function getFacadeAccessor()
     {
         return 'Otp';
     }
+
     public function generate(string $identifier, int $digits = 4, int $validity = 10): object
     {
         Model::where('identifier', $identifier)->where('valid', true)->delete();
@@ -82,7 +88,7 @@ class TwoFactorComponent extends Component
         if ($otp == null) {
             return (object)[
                 'status' => false,
-                'message' => 'OTP does not exist'
+                'message' => 'code does not exist'
             ];
         } else {
             if ($otp->valid == true) {
@@ -96,7 +102,7 @@ class TwoFactorComponent extends Component
 
                     return (object)[
                         'status' => false,
-                        'message' => 'OTP Expired'
+                        'message' => 'code Expired'
                     ];
                 } else {
                     $otp->valid = false;
@@ -104,13 +110,13 @@ class TwoFactorComponent extends Component
 
                     return (object)[
                         'status' => true,
-                        'message' => 'OTP is valid'
+                        'message' => 'code is valid'
                     ];
                 }
             } else {
                 return (object)[
                     'status' => false,
-                    'message' => 'OTP is not valid'
+                    'message' => 'code is not valid'
                 ];
             }
         }
@@ -131,5 +137,12 @@ class TwoFactorComponent extends Component
         }
 
         return $pin;
+    }
+
+    public function resendOtp()
+    {
+        $otp = $this->generate(Auth::user()->id);
+        session()->flash('status', "$otp->token code resent");
+        // sms the code
     }
 }
