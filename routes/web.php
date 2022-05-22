@@ -2,6 +2,11 @@
 
 
 use App\Http\Livewire\Dashboard\DashboardComponent;
+use App\Http\Livewire\Dashboard\DonationsComponent;
+use App\Http\Livewire\Dashboard\NotificationsComponent;
+use App\Http\Livewire\Dashboard\SettingsComponent;
+use App\Http\Livewire\Dashboard\TransactionsComponent;
+use App\Http\Livewire\Dashboard\WalletComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TwoFactorComponent;
 
@@ -26,10 +31,20 @@ Route::post('/login-authenticate', [\App\Http\Controllers\Auth\LoginController::
 Route::middleware('auth')->group(function () {
     Route::get('/twofactor', TwoFactorComponent::class)
         ->name('twofactor');
-    Route::middleware(['twofactor'])->group(function () {
+    Route::middleware(['twofactor'])->prefix('dashboard')->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
             ->name('home');
-        Route::get('/dashboard', DashboardComponent::class)
+        Route::get('/', DashboardComponent::class)
             ->name('dashboard');
+        Route::get('/wallet', WalletComponent::class)
+            ->name('wallet');
+        Route::get('/donations', DonationsComponent::class)
+            ->name('donations');
+        Route::get('/notifications', NotificationsComponent::class)
+            ->name('notifications');
+        Route::get('/transactions', TransactionsComponent::class)
+            ->name('transactions');
+        Route::get('/settings', SettingsComponent::class)
+            ->name('settings');
     });
 });
