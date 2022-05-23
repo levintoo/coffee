@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Wallet extends Model
 {
     use HasFactory, SoftDeletes;
+    
+    protected $fillable = [
+        'userid',
+        'balance',
+        'prev_balance',
+    ];
 }

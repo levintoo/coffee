@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Wallet;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -69,6 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $userid = $this->generateID(new User(),'userid',4,'COF');
         $number = substr($data['phone'], 0, 1);
         if($number != '0')
         {
@@ -76,8 +78,13 @@ class RegisterController extends Controller
         }else{
             $number = substr($data['phone'] , -9);
         }
+        $wallet = Wallet::create([
+            'userid' => $userid,
+            'balance' => 0,
+            'prev_balance' => 0,
+        ]);
         return User::create([
-            'userid' => $this->generateID(new User(),'userid',4,'COF'),
+            'userid' => $userid,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
