@@ -23,7 +23,7 @@ class WalletComponent extends Component
         $todaysearning = $todaysearning + $todayearning->amount;
     }
 
-    $todaywithdrawal = Transaction::whereDay('created_at','=',Carbon::now()->day)->where('userid','=',Auth::user()->userid)->where('type','=','debit')->get();
+    $todaywithdrawal = Transaction::whereDay('created_at','=',Carbon::now()->day)->where('userid','=',Auth::user()->userid)->where('type','=','debit')->where('purpose','=','withdrawal')->get();
     $todayswithdrawal = 0;
     foreach ($todaywithdrawal as $todaywithdrawal) {
         $todayswithdrawal = $todayswithdrawal + $todaywithdrawal->amount;
@@ -71,5 +71,108 @@ class WalletComponent extends Component
             'thanyesterdayamount'=>$thanyesterdayamount,
             'thanyesterdaypercent'=>$thanyesterdaypercent
             ])->layout('layouts.dashboard');
+    }
+
+    public $mpesa_amount;
+    public $mpesa_number;
+    public $paypal_amount;
+    public $paypal_email;
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName,[
+            'mpesa_amount' => 'required|numeric|min:100',
+            'mpesa_number' => 'required|regex:/^[0-9]+$/|min:9|max:10',
+            'paypal_amount' => 'required|numeric|min:100',
+            'paypal_email' => 'required|string|email',
+        ]);
+    }
+
+    public function withdrawMpesa()
+    {
+        $this->validate([
+            'mpesa_amount' => 'required|numeric|min:100',
+            'mpesa_number' => 'required|regex:/^[0-9]+$/|min:9|max:10',
+        ]);
+        session::flash('status','Initiated transaction');
+        $wallet = Wallet::where('userid',Auth::user()->userid)->first();
+        if($wallet->balance > $this->mpesa_amount || $wallet->balance == $this->mpesa_amount)
+        {
+            $new_walletamount = $wallet->balance - $this->mpesa_amount;
+            $new_wallet = Wallet::where('userid',Auth::user()->userid)->update([
+                'balance' => $new_walletamount,
+                'prev_balance' => $wallet->balance,
+            ]);
+            $transaction = Transaction::create([
+                'userid' => Auth::user()->userid,
+                'transaction_id' => "ASDASGAF!@#",
+                'purpose' => 'withdrawal',
+                'mode_of_payment' => 'mpesa',
+                'amount' => $wallet->balance,
+                'transacted_at' => Carbon::now(),
+                'status' => '2',
+                'type' => 'debit',
+            ]);
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Good job!",
+                'text'=> "You successfully have withdrawn $$this->mpesa_amount to $this->mpesa_number!",
+                'icon'=> "success",
+                'button'=> "close!",
+            ]);
+        }
+        else{
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Oops!",
+                'text'=> "Your wallet balance is too low to complete this transaction!",
+                'icon'=> "warning",
+                'button'=> "close!",
+            ]);
+        }
+    }
+
+    public function withdrawPaypal()
+    {
+        $this->validate([
+            'paypal_amount' => 'required|numeric|min:100',
+            'paypal_email' => 'required|string|email',
+        ]);
+        session::flash('status','Initiated transaction');
+        $wallet = Wallet::where('userid',Auth::user()->userid)->first();
+        if($wallet->balance > $this->paypal_amount || $wallet->balance == $this->paypal_amount)
+        {
+            $new_walletamount = $wallet->balance + $this->paypal_amount;
+            $new_wallet = Wallet::where('userid',Auth::user()->userid)->update([
+                'balance' => $new_walletamount,
+                'prev_balance' => $wallet->balance,
+            ]);
+            $transaction = Transaction::create([
+                'userid' => Auth::user()->userid,
+                'transaction_id' => "ASPPPSGAF!@#",
+                'purpose' => 'withdrawal',
+                'mode_of_payment' => 'paypal',
+                'amount' => $wallet->balance,
+                'transacted_at' => Carbon::now(),
+                'status' => '2',
+                'type' => 'debit',
+            ]);
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Good job!",
+                'text'=> "You successfully have withdrawn $$this->paypal_amount to $this->paypal_email!",
+                'icon'=> "success",
+                'button'=> "close!",
+            ]);
+        }else
+        {
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Oops!",
+                'text'=> "Your wallet balance is too low to complete this transaction!",
+                'icon'=> "warning",
+                'button'=> "close!",
+            ]);
+        }
     }
 }

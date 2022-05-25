@@ -153,16 +153,21 @@
                         </div>
                     </div>
                     <div class="contact-form card-body">
-                        <form class="theme-form" action="" method="POST">
+                        <form class="theme-form" wire:submit.prevent="withdrawMpesa">
                             @csrf
+                            @if(session()->has('status'))
+                                {{ session('status') }}
+                            @endif
                             <div class="form-icon"><i class="icofont icofont-envelope-open"></i></div>
                             <div class="mb-3">
                                 <label for="exampleInputAmount">Amount</label>
-                                <input class="form-control" id="exampleMpesaInputAmount" name="inputAmount" type="number" placeholder="500" data-bs-original-title="" title=""  autofocus >
+                                <input wire:model="mpesa_amount" class="form-control" id="exampleMpesaInputAmount" name="inputAmount" type="number" placeholder="500" data-bs-original-title="" title=""  autofocus >
+                                @error('mpesa_amount') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="col-form-label" for="exampleInputPhone1">Number</label>
-                                <input class="form-control" id="exampleInputPhone1" type="text" name="inputPhone" :value="old('phone')" autocomplete="[phone]" type="text" placeholder="+254700814223" data-bs-original-title="" title="">
+                                <input wire:model="mpesa_number" class="form-control" id="exampleInputPhone1" type="text" name="inputPhone" :value="old('phone')" autocomplete="[phone]" type="text" placeholder="0700814223" data-bs-original-title="" title="">
+                                @error('mpesa_number') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="text-sm-end">
                                 <button id="exampleMpesaSubmit" type="submit" class="btn btn-primary" data-bs-original-title="" title="">SEND IT</button>
@@ -181,16 +186,21 @@
                         </div>
                     </div>
                     <div class="contact-form card-body">
-                        <form class="theme-form" action="" method="POST">
+                        <form class="theme-form" wire:submit.prevent="withdrawPaypal">
                             @csrf
+                            @if(session()->has('status'))
+                                {{ session('status') }}
+                            @endif
                             <div class="form-icon"><i class="icofont icofont-envelope-open"></i></div>
                             <div class="mb-3">
                                 <label for="exampleInputAmount">Amount</label>
-                                <input class="form-control" id="exampleInputAmount" type="number" name="inputAmount"  placeholder="$500" data-bs-original-title="" title="">
+                                <input wire:model="paypal_amount" class="form-control" id="exampleInputAmount" type="number" name="inputAmount"  placeholder="$500" data-bs-original-title="" title="">
+                                @error('paypal_amount') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="col-form-label" for="exampleInputEmail1">Email</label>
-                                <input class="form-control" id="exampleInputEmail1" type="email" name="inputEmail" placeholder="Demo@gmail.com" data-bs-original-title="" title="">
+                                <input wire:model="paypal_email" class="form-control" id="exampleInputEmail1" type="email" name="inputEmail" placeholder="Demo@gmail.com" data-bs-original-title="" title="">
+                                @error('paypal_email') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="text-sm-end">
                                 <button type="submit" class="btn btn-primary" data-bs-original-title="" title="">SEND IT</button>
@@ -333,26 +343,14 @@
     </div>
 </div>
 @push('scripts')
-    <script src="{{ asset('assets/dashboard/js/sweet-alert/app.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/js/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
-        @if(session()->has('success'))
-        swal({
-            title:"Success!",
-            text:"{{session('success')}}",
-            icon:"success",
-            showCancelButton: false,
-            showConfirmButton: false
+        window.addEventListener('swal:modal', event => {
+            swal.fire({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.icon,
+                button: event.detail.button,
+            })
         });
-        @endif
-        @if(session()->has('fail'))
-        swal({
-            title:"Failed!",
-            text:"{{session('fail')}}",
-            icon:"warning",
-            showCancelButton: false,
-            showConfirmButton: false
-        });
-        @endif
     </script>
 @endpush

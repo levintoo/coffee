@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Http\Controllers\payment\MpesaPaymentController;
+use App\Http\Controllers\payment\PaypalPaymentController;
 use App\Http\Livewire\Dashboard\DashboardComponent;
 use App\Http\Livewire\Dashboard\DonationsComponent;
 use App\Http\Livewire\Dashboard\NotificationsComponent;
@@ -46,5 +48,9 @@ Route::middleware('auth')->group(function () {
             ->name('transactions');
         Route::get('/settings', SettingsComponent::class)
             ->name('settings');
+        Route::post('/mpesa/withdraw', [MpesaPaymentController::class, 'withdraw'])
+            ->name('mpesa.withdraw');
+        Route::post('/paypal/withdraw', [PaypalPaymentController::class, 'withdraw'])
+            ->name('paypal.withdraw');
     });
 });

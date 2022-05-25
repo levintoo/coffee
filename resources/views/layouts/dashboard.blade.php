@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -318,17 +319,7 @@
                             <li><a href="email-application.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                             <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                             <li><a href="edit-profile.html"><i data-feather="settings"></i><span>Settings</span></a></li>
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                    <i data-feather="log-in"> </i><span>Log in</span>
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
+                            <li><a href="login.html"><i data-feather="log-in"> </i><span>Log in</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -372,7 +363,7 @@
                                         </g>
                                     </svg><span class="lan-3">Dashboard              </span></a>
                                 <ul class="sidebar-submenu">
-                                    <li><a class="lan-4" href="index-2.html">Default</a></li>
+                                    <li><a class="lan-4" href="{{ route('dashboard') }}">Default</a></li>
                                     <li><a class="lan-5" href="dashboard-02.html">E-commerce</a></li>
                                     <li><a href="crypto-dashboard.html">Crypto</a></li>
                                 </ul>
@@ -1121,10 +1112,7 @@
                 </nav>
             </div>
         </div>
-        <!-- Page Sidebar Ends-->
-      {{ $slot }}
-    </div>
-</div>
+            {{ $slot }}
 </div>
 <!-- Container-fluid Ends-->
 </div>
@@ -1133,7 +1121,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 footer-copyright text-center">
-                <p class="mb-0">Copyright 2022 © Zeta theme by pixelstrap  </p>
+                <p class="mb-0">Copyright 2022 © Zeta theme by me  </p>
             </div>
         </div>
     </div>
@@ -1179,6 +1167,10 @@
 <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 <!-- login js-->
 <!-- Plugin used-->
+<script src="{{ asset('assets/sweetalert2.all.min.js') }}"></script>
+
+@stack('scripts')
 @livewireScripts
 </body>
+
 </html>
