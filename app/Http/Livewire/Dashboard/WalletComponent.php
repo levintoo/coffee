@@ -96,7 +96,7 @@ class WalletComponent extends Component
         ]);
         session::flash('status','Initiated transaction');
         $wallet = Wallet::where('userid',Auth::user()->userid)->first();
-        if($wallet->balance > $this->mpesa_amount || $wallet->balance == $this->mpesa_amount)
+        if($wallet->balance > $this->paypal_amount || $wallet->balance == $this->paypal_amount)
         {
             $new_walletamount = $wallet->balance - $this->mpesa_amount;
             $new_wallet = Wallet::where('userid',Auth::user()->userid)->update([
@@ -106,12 +106,12 @@ class WalletComponent extends Component
             $transaction = Transaction::create([
                 'userid' => Auth::user()->userid,
                 'transaction_id' => "ASDASGAF!@#",
-                'purpose' => 'withdrawal',
+                'purpose' => 'donation',
                 'mode_of_payment' => 'mpesa',
-                'amount' => $wallet->balance,
+                'amount' => $this->mpesa_amount,
                 'transacted_at' => Carbon::now(),
                 'status' => '2',
-                'type' => 'debit',
+                'type' => 'credit',
             ]);
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
@@ -142,7 +142,7 @@ class WalletComponent extends Component
         $wallet = Wallet::where('userid',Auth::user()->userid)->first();
         if($wallet->balance > $this->paypal_amount || $wallet->balance == $this->paypal_amount)
         {
-            $new_walletamount = $wallet->balance + $this->paypal_amount;
+            $new_walletamount = $wallet->balance - $this->paypal_amount;
             $new_wallet = Wallet::where('userid',Auth::user()->userid)->update([
                 'balance' => $new_walletamount,
                 'prev_balance' => $wallet->balance,
@@ -152,7 +152,7 @@ class WalletComponent extends Component
                 'transaction_id' => "ASPPPSGAF!@#",
                 'purpose' => 'withdrawal',
                 'mode_of_payment' => 'paypal',
-                'amount' => $wallet->balance,
+                'amount' => $this->paypal_amount,
                 'transacted_at' => Carbon::now(),
                 'status' => '2',
                 'type' => 'debit',
