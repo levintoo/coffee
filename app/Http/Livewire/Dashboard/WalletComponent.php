@@ -106,12 +106,12 @@ class WalletComponent extends Component
             $transaction = Transaction::create([
                 'userid' => Auth::user()->userid,
                 'transaction_id' => "ASDASGAF!@#",
-                'purpose' => 'donation',
+                'purpose' => 'withdrawal',
                 'mode_of_payment' => 'mpesa',
                 'amount' => $this->mpesa_amount,
                 'transacted_at' => Carbon::now(),
                 'status' => '2',
-                'type' => 'credit',
+                'type' => 'debit',
             ]);
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",

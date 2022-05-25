@@ -2,12 +2,18 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TransactionsComponent extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        return view('livewire.dashboard.transactions-component')->layout('layouts.dashboard');
+        $transactions = Transaction::where('userid',Auth::user()->userid)->where('purpose','!=','donation')->paginate(10);
+        return view('livewire.dashboard.transactions-component',['transactions' => $transactions])->layout('layouts.dashboard');
     }
 }

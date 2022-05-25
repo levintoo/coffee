@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Transaction;
 use Livewire\Component;
 
 class DonationsComponent extends Component
