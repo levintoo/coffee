@@ -260,6 +260,10 @@
                             <li><a href="email-application.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                             <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                             <li><a href="edit-profile.html"><i data-feather="settings"></i><span>Settings</span></a></li>
+                            <li><a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i data-feather="log-in"> </i><span>Log out</span></a></li>
+                            <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                                @csrf
+                            </form>
                             <li><a href="login.html"><i data-feather="log-in"> </i><span>Log in</span></a></li>
                         </ul>
                     </li>

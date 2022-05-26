@@ -9,6 +9,7 @@ use App\Http\Livewire\Dashboard\NotificationsComponent;
 use App\Http\Livewire\Dashboard\SettingsComponent;
 use App\Http\Livewire\Dashboard\TransactionsComponent;
 use App\Http\Livewire\Dashboard\WalletComponent;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TwoFactorComponent;
 
@@ -25,10 +26,6 @@ use App\Http\Livewire\TwoFactorComponent;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/ip', function () {
-    return \Request::ip();
 });
 
 Auth::routes();
