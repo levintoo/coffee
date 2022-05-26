@@ -27,6 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/ip', function () {
+    return \Request::ip();
+});
+
 Auth::routes();
 Route::post('/login-authenticate', [\App\Http\Controllers\Auth\LoginController::class, 'authenticate'])
     ->name('login.authentication.manual');
