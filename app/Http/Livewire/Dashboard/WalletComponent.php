@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Notification;
 use Carbon\Carbon;
 use App\Models\Wallet;
 use Livewire\Component;
@@ -112,7 +113,9 @@ class WalletComponent extends Component
                 'transacted_at' => Carbon::now(),
                 'status' => '2',
                 'type' => 'debit',
+                'received_by' => $this->mpesa_number,
             ]);
+            $this->sendNoty('Activity',"Successfully withdrawn ksh$this->mpesa_amount via mpesa");
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
                 'title'=> "Good job!",
@@ -156,7 +159,9 @@ class WalletComponent extends Component
                 'transacted_at' => Carbon::now(),
                 'status' => '2',
                 'type' => 'debit',
+                'received_by' => $this->paypal_email,
             ]);
+            $this->sendNoty('Activity',"Successfully withdrawn ksh$this->paypal_amount via paypal");
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
                 'title'=> "Good job!",
@@ -174,5 +179,14 @@ class WalletComponent extends Component
                 'button'=> "close!",
             ]);
         }
+    }
+    public function sendNoty($title ,$message)
+    {
+        Notification::create([
+            'userid' => Auth::user()->userid,
+            'title' => $title,
+            'message' => $message,
+            'status' => '0',
+        ]);
     }
 }

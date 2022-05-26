@@ -13,7 +13,7 @@ class TransactionsComponent extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $transactions = Transaction::where('userid',Auth::user()->userid)->where('purpose','!=','donation')->paginate(10);
+        $transactions = Transaction::where('userid',Auth::user()->userid)->where('purpose','!=','donation')->orderby('transacted_at','DESC')->paginate(10);
         return view('livewire.dashboard.transactions-component',['transactions' => $transactions])->layout('layouts.dashboard');
     }
 }
