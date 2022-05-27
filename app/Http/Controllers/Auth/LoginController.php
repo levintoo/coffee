@@ -50,9 +50,12 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get('http://ip-api.com/json/');
+            $response = json_decode($response->getBody());
             User::where('email',$request->email)->update([
                 'last_login_at' => Carbon::now(),
-                'last_login_ip' => request()->getClientIp(),
+                'last_login_ip' => $response->query,
             ]);
 
             $request->session()->regenerate();
