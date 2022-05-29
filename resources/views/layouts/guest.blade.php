@@ -19,17 +19,17 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome-v5.15.4/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/font-awesome.css') }}">
     <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/icofont.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/icofont.css') }}">
     <!-- Themify icon-->
 {{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/themify.css') }}">--}}
 <!-- Flag icon-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flag-icon.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/flag-icon.css') }}">
     <!-- Feather icon-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/feather-icon.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/feather-icon.css') }}">
     <!-- Plugins css start-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/sweetalert2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
     <!-- Plugins css Ends-->
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
@@ -42,9 +42,9 @@
 <body>
 <section></section>
 {{ $slot }}
-<script src="{{ asset('assets/js/font-awesome-v5.15.4/all.min.js') }}"></script>
+<script src="{{ asset('js/font-awesome-6.1.1/all.min.js') }}"></script>
 <!-- latest jquery-->
-<script src="{{ asset('assets/js/jquery/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 <!-- Bootstrap js-->
 <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <!-- feather icon js-->
@@ -54,7 +54,7 @@
 <!-- Sidebar jquery-->
 <script src="{{ asset('assets/js/config.js') }}"></script>
 <!-- Plugins JS start-->
-<script src="{{ asset('assets/js/sweet-alert/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('assets/sweetalert2.all.min.js') }}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets/js/script.js') }}"></script>

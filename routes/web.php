@@ -9,6 +9,7 @@ use App\Http\Livewire\Dashboard\NotificationsComponent;
 use App\Http\Livewire\Dashboard\SettingsComponent;
 use App\Http\Livewire\Dashboard\TransactionsComponent;
 use App\Http\Livewire\Dashboard\WalletComponent;
+use App\Http\Livewire\Donate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TwoFactorComponent;
@@ -55,3 +56,5 @@ Route::middleware('auth')->group(function () {
             ->name('paypal.withdraw');
     });
 });
+
+Route::get('/{username}', Donate::class)->name('donate');

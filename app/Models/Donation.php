@@ -9,4 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Donation extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'userid',
+        'transaction_id',
+        'mode_of_payment',
+        'amount',
+        'donated_at',
+        'status',
+    ];
 }
