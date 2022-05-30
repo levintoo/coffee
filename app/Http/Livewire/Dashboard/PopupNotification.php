@@ -23,6 +23,10 @@ class PopupNotification extends Component
         $noty->status = '1';
         $noty->save();
     }
+    public function openNoty()
+    {
+        $this->redirectRoute('notifications');
+    }
     public function showNoty($id)
     {
         $this->modal_id = $id;

@@ -1,4 +1,4 @@
-<li class="onhover-dropdown">
+<li class="" wire:click="openNoty">
     <div class="notification-box">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
@@ -10,35 +10,6 @@
             @if($this->notifications_count > 0)
         </svg><span class="badge rounded-pill badge-warning">{{ $this->notifications_count }}</span>
         @endif
-    </div>
-    <div class="onhover-show-div notification-dropdown">
-        <div class="dropdown-title">
-            <h3>Notification</h3><a class="f-right" href="cart.html"> <i data-feather="bell">                           </i></a>
-        </div>
-        <ul class="custom-scrollbar">
-            @if(session()->has('status'))
-                {{ session('status') }}
-            @endif
-            @forelse($notifications as $notification)
-                <li>
-                    <div class="media">
-                        <div class="notification-img bg-light-primary"><img src="{{ asset('assets/images/avtar/man.png') }}" alt=""></div>
-                        <div class="media-body">
-                            <h5> <a class="f-14 m-0" href="" wire:click.prevent="showNoty({{$notification->id}})">{{ $notification->title }}</a></h5>
-                            <p>{{$notification->short_message}}</p><span>{{ $notification->short_notified_at }}</span>
-                        </div>
-                        <div class="notification-right"><a href="#" wire:click.prevent="markSeenNoty({{$notification->id}})"><i data-feather="x"></i></a></div>
-                    </div>
-                </li>
-            @empty
-                <li>
-                    <div class="my-1 d-flex justify-content-center">
-                        <div class="fs-6">You have no new notifications yet.</div>
-                    </div>
-                </li>
-            @endforelse
-            <li class="p-0"><a class="btn btn-primary" href="#">Check all</a></li>
-        </ul>
     </div>
 </li>
 @push('scripts')
