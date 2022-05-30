@@ -39,8 +39,8 @@
                                             @forelse($donations as $donation)
                                             <div class="media updates-faq-main">
                                                 <div class="updates-faq">{{ $donation->readable_amount }}</div>
-                                                <div class="media-body updates-bottom-time">
-                                                    <p><a href="javascript:void(0)">{{ $donation->name }} </a>{{ $donation->message }}</p>
+                                                <div class="media-body updates-bottom-time" wire:click="showModal({{ $donation->id }})">
+                                                    <p><a href="">{{ $donation->name }} </a>{{ $donation->message }}</p>
                                                     <p>{{ $donation->readable_donated_at }}</p>
                                                 </div>
                                             </div>
@@ -63,3 +63,17 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        window.addEventListener('swal:modal', event => {
+            swal.fire({
+                title: event.detail.title,
+                text: event.detail.text,
+                html: event.detail.html,
+                footer: event.detail.footer,
+                showCancelButton: false,
+                showConfirmButton: false,
+            })
+        });
+    </script>
+@endpush
