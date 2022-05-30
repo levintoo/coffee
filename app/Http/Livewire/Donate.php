@@ -14,6 +14,8 @@ use Livewire\Component;
 
 class Donate extends Component
 {
+    public $input_name;
+    public $input_message;
     public $name;
     public $other_amount;
     public $payment_method;
@@ -42,6 +44,8 @@ class Donate extends Component
         $this->validateOnly($propertyName,[
             'other_amount' => 'required|numeric|min:100',
             'payment_method' => 'required|string|max:10',
+            'input_name' => 'string|max:255',
+            'input_message' => 'string|max:2550',
         ]);
     }
 
@@ -50,6 +54,8 @@ class Donate extends Component
         $this->validate([
             'other_amount' => 'required|numeric|min:100',
             'payment_method' => 'required|string|max:10',
+            'input_name' => 'string|max:255',
+            'input_message' => 'string|max:2550',
         ]);
         if($this->payment_method == "mpesa")
         {
@@ -70,6 +76,8 @@ class Donate extends Component
         $this->validate([
             'other_amount' => 'required|numeric|min:100',
             'payment_method' => 'required|string|max:10',
+            'input_name' => 'string|max:255',
+            'input_message' => 'string|max:2550',
         ]);
         $user = User::where('username',$this->name)->select('phone','email','userid')->first();
         if(empty($user))
@@ -118,6 +126,8 @@ class Donate extends Component
                 'mode_of_payment' => $this->payment_method,
                 'amount' => $this->other_amount,
                 'donated_at' => Carbon::now(),
+                'name' => $this->input_name,
+                'message' => $this->input_message,
                 'status' => '2',
             ]);
             $noty = Notification::create([
@@ -142,6 +152,8 @@ class Donate extends Component
         $this->validate([
             'other_amount' => 'required|numeric|min:100',
             'payment_method' => 'required|string|max:10',
+            'input_name' => 'string|max:255',
+            'input_message' => 'string|max:2550',
         ]);
         $user = User::where('username',$this->name)->select('phone','email','userid')->first();
         if(empty($user))
@@ -191,6 +203,8 @@ class Donate extends Component
                     'amount' => $this->other_amount,
                     'donated_at' => Carbon::now(),
                     'status' => '2',
+                    'name' => $this->input_name,
+                    'message' => $this->input_message,
                 ]);
                 $noty = Notification::create([
                     'userid' => $user->userid,

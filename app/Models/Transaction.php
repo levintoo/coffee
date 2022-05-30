@@ -25,7 +25,9 @@ class Transaction extends Model
         'transacted_at',
         'status',
         'type',
-        'received_by'
+        'received_by',
+        'name',
+        'message',
     ];
     protected $appends = [
         'readable_transacted_at_time',

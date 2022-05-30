@@ -96,6 +96,7 @@
                                                 <div class="fs-6">You have no notifications yet.</div>
                                             </div>
                                         @endforelse
+{{--                                            {!! $notification->links() !!}--}}
 
                                     </div>
                                 </div>

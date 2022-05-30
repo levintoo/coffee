@@ -90,6 +90,22 @@
                                                 </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group py-1 mb-1">
+                                                <input id="donatePaymentMethod" class="form-control custom-control h-100 @error('input_name') is-invalid @enderror" wire:model="input_name">
+                                                @error('input_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group py-1 mb-1">
+                                                <textarea id="donatePaymentMethod"  class="form-control custom-control h-100 @error('input_message') is-invalid @enderror" wire:model="input_message"></textarea>
+                                                @error('input_message')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
                                         <div class="form-group py-1 mb-1">
                                             <button id="donateBtnStep1" type="submit"
                                                     class="btn btn-large btn-orange text-uppercase frm-step-btn"
