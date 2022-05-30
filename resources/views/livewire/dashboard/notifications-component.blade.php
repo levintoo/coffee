@@ -55,6 +55,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if(session()->has('status'))
+                                        {{ session('status') }}
+                                    @endif
                                     <div class="inbox min-vh-50">
                                         @forelse($this->notifications as $notification)
                                             @if($notification->status > 0)
@@ -65,9 +68,9 @@
                                                     </label><img class="me-3 rounded-circle"
                                                                  src="../assets/images/user/user.png" alt="" wire:click="setModalTitle({{ $notification->id }})">
                                                 </div>
-                                                <div class="media-body" wire:click="setModalTitle({{ $notification->id }})">
+                                                <div class="media-body" style="cursor: pointer" wire:click="setModalTitle({{ $notification->id }})">
                                                     <h6 class="f-w-300">{{ $notification->title }} </h6>
-                                                    <div class="mx-3 text-muted f-w-300" data-bs-toggle="modal" href="#exampleModalToggle" role="button">
+                                                    <div class="mx-3 text-muted f-w-300">
                                                         {{ $notification->message }}
                                                     </div>
                                                     <span class="f-w-300">11:59 PM</span>
@@ -81,9 +84,9 @@
                                                     </label><img class="me-3 rounded-circle"
                                                                  src="../assets/images/user/user.png" alt="" wire:click.prefetch="setModalTitle({{ $notification->id }})">
                                                 </div>
-                                                <div class="media-body" wire:click.prefetch="setModalTitle({{ $notification->id }})" >
+                                                <div class="media-body" style="cursor: pointer" wire:click.prefetch="setModalTitle({{ $notification->id }})" >
                                                     <h6>{{ $notification->title }}</h6>
-                                                    <div class="mx-3 f-w-500" data-bs-toggle="modal" href="#exampleModalToggle" role="button">{{ $notification->message }}.</div>
+                                                    <div class="mx-3 f-w-500">{{ $notification->message }}.</div>
                                                     <span>{{ $notification->notified_at }}</span>
                                                 </div>
                                             </div>
@@ -93,7 +96,6 @@
                                                 <div class="fs-6">You have no notifications yet.</div>
                                             </div>
                                         @endforelse
-                                            <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a>
 
                                     </div>
                                 </div>
@@ -104,25 +106,18 @@
             </div>
         </div>
     </div>
-    <div wire:ignore.self class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered" >
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">{{ $modal_data->title }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div wire:loading.delay>loading...</div>
-                    {{ $modal_data->message }}
-                </div>
-                <div class="modal-footer" >
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Delete</button>
-                    <button class="btn btn-primary">Not me</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-@push('modals')
-
-    @endpush
+@push('scripts')
+    <script>
+        window.addEventListener('swal:modal', event => {
+            swal.fire({
+                title: event.detail.title,
+                text: event.detail.text,
+                html: event.detail.html,
+                footer: event.detail.footer,
+                showCancelButton: false,
+                showConfirmButton: false,
+            })
+        });
+    </script>
+@endpush

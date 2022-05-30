@@ -24,7 +24,7 @@
                     <div class="media">
                         <div class="notification-img bg-light-primary"><img src="{{ asset('assets/images/avtar/man.png') }}" alt=""></div>
                         <div class="media-body">
-                            <h5> <a class="f-14 m-0" href="user-profile.html">{{ $notification->title }}</a></h5>
+                            <h5> <a class="f-14 m-0" href="" wire:click.prevent="showNoty({{$notification->id}})">{{ $notification->title }}</a></h5>
                             <p>{{$notification->short_message}}</p><span>{{ $notification->short_notified_at }}</span>
                         </div>
                         <div class="notification-right"><a href="#" wire:click.prevent="markSeenNoty({{$notification->id}})"><i data-feather="x"></i></a></div>
@@ -41,3 +41,17 @@
         </ul>
     </div>
 </li>
+@push('scripts')
+    <script>
+        window.addEventListener('swal:modal', event => {
+            swal.fire({
+                title: event.detail.title,
+                text: event.detail.text,
+                html: event.detail.html,
+                footer: event.detail.footer,
+                showCancelButton: false,
+                showConfirmButton: false,
+            })
+        });
+    </script>
+@endpush
