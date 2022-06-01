@@ -71,10 +71,10 @@
                         <div class="col-sm-auto col-8 my-auto">
                             <div class="h-100">
                                 <h5 class="mb-1 font-weight-bolder">
-                                    {{ Auth::user()->name }}
+                                    {{ $name }}
                                 </h5>
                                 <p class="mb-0 font-weight-bold text-sm">
-                                    {{ Auth::user()->profession }} / Co-Founder
+                                    {{ $profession }} / Co-Founder
                                 </p>
                             </div>
                         </div>
@@ -95,74 +95,96 @@
                     <div class="card-header">
                         <h5>Basic Info</h5>
                     </div>
-                    <div class="card-body pt-0">
+                    <form class="card-body pt-0">
+                        @csrf
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-6">
-                                <label class="form-label mt-4">First Name</label>
+                                <label class="form-label mt-4">Name</label>
                                 <div class="input-group">
-                                    <input id="firstName" name="firstName" class="form-control" type="text" placeholder="Alec" required="required" onfocus="focused(this)" onfocusout="defocused(this)">
+                                    <input class="form-control" type="text" placeholder="{{ Auth::user()->name }}" required="required"  wire:model="name">
                                 </div>
+                                @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-6">
-                                <label class="form-label mt-4">Last Name</label>
+                                <label class="form-label mt-4">Username</label>
                                 <div class="input-group">
-                                    <input id="lastName" name="lastName" class="form-control" type="text" placeholder="Thompson" required="required" onfocus="focused(this)" onfocusout="defocused(this)">
+                                    <input class="form-control" type="text" placeholder="{{ Auth::user()->username }}" required="required"  wire:model="username">
                                 </div>
+                                @error('username') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label class="form-label mt-4">Email</label>
                                 <div class="input-group">
-                                    <input id="email" name="email" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)">
+                                    <input class="form-control" type="email" placeholder="{{ Auth::user()->email }}"  wire:model="email">
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label mt-4">Confirmation Email</label>
-                                <div class="input-group">
-                                    <input id="confirmation" name="confirmation" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label mt-4">Your location</label>
-                                <div class="input-group">
-                                    <input id="location" name="location" class="form-control" type="text" placeholder="Sydney, A" onfocus="focused(this)" onfocusout="defocused(this)">
-                                </div>
+                                @error('email') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-6">
                                 <label class="form-label mt-4">Phone Number</label>
                                 <div class="input-group">
-                                    <input id="phone" name="phone" class="form-control" type="number" placeholder="+40 735 631 620" onfocus="focused(this)" onfocusout="defocused(this)">
+                                    <input class="form-control" type="text" placeholder="+254{{ Auth::user()->phone }}"  wire:model="phone">
                                 </div>
+                                @error('phone') <span class="error">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label mt-4">Country</label>
+                                    <div class="input-group">
+                                        <input  class="form-control" type="text" placeholder="{{ Auth::user()->country }}"  wire:model="country">
+                                    </div>
+                                    @error('country') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                            <div class="col-6">
+                                <label class="form-label mt-4">Profession</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="{{ Auth::user()->profession }}"  wire:model="profession">
+                                </div>
+                                @error('profession') <span class="error">{{ $message }}</span> @enderror
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label mt-4">Description</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" placeholder="{{ Auth::user()->description }}"  wire:model="description"></textarea>
+                                </div>
+                                @error('description') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6"></div>
-                            <div class="col-6 float-end">
-                                <button class="btn btn-sm btn-outline-dark mb-0 mt-4">Update password</button>
+                            <div class="col-6 float-start mt-2">
+                                <button class="btn btn-sm btn-outline-dark mb-0 mt-4"  wire:click.prevent="updateUser">Update info</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="card mt-4" id="password">
                     <div class="card-header">
                         <h5>Change Password</h5>
                     </div>
-                    <div class="card-body pt-0">
+                    <form class="card-body pt-0" method="POST" action="{{ route('post') }}">
+                        @csrf
                         <label class="form-label">Current password</label>
                         <div class="form-group">
-                            <input class="form-control" type="password" placeholder="Current password" onfocus="focused(this)" onfocusout="defocused(this)">
+                            <input class="form-control" type="password" name="current_password" placeholder="Current password" >
                         </div>
                         <label class="form-label mt-2">New password</label>
                         <div class="form-group">
-                            <input class="form-control" type="password" placeholder="New password" onfocus="focused(this)" onfocusout="defocused(this)" aria-autocomplete="list">
+                            <input class="form-control" type="password" name="new_password" placeholder="New password"  aria-autocomplete="list">
                         </div>
                         <label class="form-label mt-2">Confirm new password</label>
                         <div class="form-group">
-                            <input class="form-control" type="password" placeholder="Confirm password" onfocus="focused(this)" onfocusout="defocused(this)">
+                            <input class="form-control" type="password" name="confirm_password"  placeholder="Confirm password" >
                         </div>
                         <h5 class="mt-5">Password requirements</h5>
                         <p class="text-muted mb-2">
@@ -182,8 +204,8 @@
                                 <span class="text-sm">Change it often</span>
                             </li>
                         </ul>
-                        <button class="btn btn-sm btn-outline-dark mb-0">Update password</button>
-                    </div>
+                        <button type="submit" class="btn btn-sm btn-outline-dark mb-0">Update password</button>
+                    </form>
                 </div>
 
                 <div class="card mt-4" id="2fa">
@@ -364,3 +386,15 @@
         </div>
     </div>
 </div>
+@push('scripts')
+        <script>
+            window.addEventListener('swal:modal', event => {
+                swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.icon,
+                    confirmButtonText: event.detail.button,
+                })
+            });
+        </script>
+@endpush

@@ -56,5 +56,8 @@ Route::middleware('auth')->group(function () {
             ->name('paypal.withdraw');
     });
 });
+Route::post('/post/post', function (Request $request){
+    return $request;
+})->name('post');
 
 Route::get('/{username}', Donate::class)->name('donate');

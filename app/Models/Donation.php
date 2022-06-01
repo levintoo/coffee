@@ -27,7 +27,7 @@ class Donation extends Model
     ];
     public function getReadableDonatedAtAttribute()
     {
-        Carbon::parse( $this->donated_at)->isToday() ?$time= Carbon::parse( $this->donated_at)->diffForHumans() : $time = Carbon::parse( $this->donated_at)->toFormattedDateString();
+        Carbon::parse( $this->donated_at)->isToday() ? $time= Carbon::parse( $this->donated_at)->diffForHumans() : $time = Carbon::parse( $this->donated_at)->toFormattedDateString();
         return $time;
     }
     public function getReadableAmountAttribute()
