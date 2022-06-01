@@ -7,7 +7,7 @@
                     <h4>Two-factor Authentication</h4>
 
                     <h6 class="mt-2">
-                        Please enter verification code sent to ******
+                        Please enter verification code sent to {{ $hid_phone }}
                     </h6>
                     <div class="form-group">
                         @if (session('status'))

@@ -11,13 +11,19 @@ use Carbon\Carbon;
 
 class TwoFactorComponent extends Component
 {
-    public $otp;
+    public $otp, $hid_phone;
 
     public function mount()
     {
         if (Session::has('twofactor' . md5(Auth::user()->name . Auth::user()->email))) {
             return redirect()->route('dashboard');
         }
+
+        $target = '+254'.Auth::user()->phone;
+        $count = strlen($target) - 8;
+        $output = substr_replace($target, str_repeat('*', $count), 5, $count);
+
+        $this->hid_phone =$output;
     }
 
     public function render()
