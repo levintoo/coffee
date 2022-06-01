@@ -1108,13 +1108,12 @@
 <script src="{{ asset('assets/js/typeahead-search/typeahead-custom.js') }}"></script>
 <script src="{{ asset('assets/js/height-equal.js') }}"></script>
 <!-- Plugins JS Ends-->
-<!-- Theme js-->
-<script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 <!-- login js-->
 <!-- Plugin used-->
 <script src="{{ asset('assets/sweetalert2.all.min.js') }}"></script>
-
+<!-- Theme js-->
+<script src="{{ asset('assets/js/script.js') }}"></script>
 @stack('scripts')
 @livewireScripts
 </body>

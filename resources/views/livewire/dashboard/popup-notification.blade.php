@@ -12,17 +12,3 @@
         @endif
     </div>
 </li>
-@push('scripts')
-    <script>
-        window.addEventListener('swal:modal', event => {
-            swal.fire({
-                title: event.detail.title,
-                text: event.detail.text,
-                html: event.detail.html,
-                footer: event.detail.footer,
-                showCancelButton: false,
-                showConfirmButton: false,
-            })
-        });
-    </script>
-@endpush
