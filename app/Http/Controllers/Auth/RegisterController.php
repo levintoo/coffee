@@ -83,7 +83,7 @@ class RegisterController extends Controller
             'balance' => 0,
             'prev_balance' => 0,
         ]);
-        return User::create([
+        $user = User::create([
             'userid' => $userid,
             'name' => $data['name'],
             'email' => $data['email'],
@@ -95,6 +95,8 @@ class RegisterController extends Controller
             'profession' => $data['profession'],
             'status' => '1',
         ]);
+        $user->assignRole('regular-user');
+        return $user;
     }
     public function generateID($model, $trow, $length = 4, $prefix){
         $data = $model::orderBy('id','desc')->first();

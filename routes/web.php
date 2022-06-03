@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\payment\MpesaPaymentController;
 use App\Http\Controllers\payment\PaypalPaymentController;
+use App\Http\Livewire\Admin\HomeComponent;
 use App\Http\Livewire\Dashboard\DashboardComponent;
 use App\Http\Livewire\Dashboard\DonationsComponent;
 use App\Http\Livewire\Dashboard\NotificationsComponent;
@@ -54,6 +55,11 @@ Route::middleware('auth')->group(function () {
             ->name('mpesa.withdraw');
         Route::post('/paypal/withdraw', [PaypalPaymentController::class, 'withdraw'])
             ->name('paypal.withdraw');
+        Route::group(['middleware' => ['role:admin']], function () {
+            Route::get('/admin', HomeComponent::class)
+                ->name('admin.home');
+        });
+
     });
 });
 Route::post('/post/post', function (Request $request){
