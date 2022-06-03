@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class SettingsComponent extends Component
 {
@@ -16,6 +18,8 @@ class SettingsComponent extends Component
     public $country;
     public $profession;
     public $description;
+    public $photo;
+    public $edit_image;
 
     public function mount()
     {
@@ -26,6 +30,8 @@ class SettingsComponent extends Component
         $this->country = Auth::user()->country;
         $this->description = Auth::user()->description;
         $this->profession = Auth::user()->profession;
+        $this->photo = Auth::user()->photo;
+        $this->edit_image = 0;
     }
 
     public function render()
@@ -42,6 +48,7 @@ class SettingsComponent extends Component
             'country' => 'string|max:255',
             'description' => 'string|max:2048',
             'profession' => 'string|max:255',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     }
 
@@ -69,6 +76,43 @@ class SettingsComponent extends Component
             'type' => "warning",
             'title'=> "yeey!",
             'text'=> "Profile has been successfully updated",
+            'icon'=> "success",
+            'button'=> "close",
+        ]);
+    }
+    public function editImage()
+    {
+        $this->edit_image = 1;
+    }
+    public function closeEditImage()
+    {
+        $this->edit_image = 0;
+    }
+
+    use WithFileUploads;
+    public function uploadImage()
+    {
+        session::flash('started','started image');
+        $this->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $imageName = md5(Auth::user()->userid).Carbon::now()->timestamp . '.' . $this->photo->extension();
+        $this->photo->storeAs('/users/', $imageName,['disk' => 'real_public']);
+
+        $user = User::where(['userid'=> Auth::user()->userid])->first();
+//        if (!is_null($user)) {
+//            $file = public_path('assets/images/users/' . $user->photo);
+//            if (file_exists($file)) {
+//                unlink(public_path('assets/images/users' . '/' . $user->photo));
+//            }
+//        }
+        $user->photo = $imageName;
+        $user->save();
+        $this->photo = $imageName;
+        $this->dispatchBrowserEvent('swal:modal',[
+            'type' => "warning",
+            'title'=> "yeey!",
+            'text'=> "Profile has been successfully updated $imageName",
             'icon'=> "success",
             'button'=> "close",
         ]);
