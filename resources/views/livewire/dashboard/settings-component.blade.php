@@ -67,35 +67,35 @@
                             <div class="avatar avatar-xl position-relative">
 {{--                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo">Open modal for @mdo</button>--}}
 
-{{--                                <div class="modal fade @if($edit_image > 0) show d-block @endif" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--                                    <div class="modal-dialog" role="document">--}}
-{{--                                        <div class="modal-content">--}}
-{{--                                            <div class="modal-header">--}}
-{{--                                                <h5 class="modal-title" id="exampleModalLabel2">New message</h5>--}}
-{{--                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="modal-body">--}}
-{{--                                                <form>--}}
-{{--                                                    <div class="mb-3">--}}
-{{--                                                        <label class="col-form-label" for="recipient-name">Recipient:</label>--}}
-{{--                                                        <input class="form-control" type="text" value="@fat">--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="mb-3">--}}
-{{--                                                        <label class="col-form-label" for="image-file">Image:</label>--}}
-{{--                                                        <input class="form-control" id="image-file" type="file" wire:model="photo">--}}
-{{--                                                        @error('photo') <span class="error">{{ $message }}</span> @enderror--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="modal-footer">--}}
-{{--                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" wire:click="closeEditImage">Close</button>--}}
-{{--                                                <button class="btn btn-primary" type="button" data-bs-dismiss="modal" wire:click="uploadImage" >Send message</button>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                 @if($edit_image > 0)<div class="modal-backdrop fade show"></div>@endif--}}
-                                <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="w-100 border-radius-lg shadow-sm" wire:click="editImage">
+                                <div class="modal fade @if($edit_image > 0) show d-block @endif" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel2">New message</h5>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                                        <input class="form-control" type="text" value="@fat">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label" for="image-file">Image:</label>
+                                                        <input class="form-control" id="image-file" type="file" wire:model="image">
+                                                        @error('image') <span class="error">{{ $message }}</span> @enderror
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" wire:click="closeEditImage">Close</button>
+                                                <button class="btn btn-primary" type="button" data-bs-dismiss="modal" wire:click="uploadImage" >Send message</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 @if($edit_image > 0)<div class="modal-backdrop fade show"></div>@endif
+                                <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
                             </div>
                         </div>
                         <div class="col-sm-auto col-8 my-auto">

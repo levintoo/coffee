@@ -153,7 +153,7 @@
                         </div>
                     </div>
                     <div class="contact-form card-body">
-                        <form class="theme-form" wire:submit.prevent="withdrawMpesa">
+                        <form class="theme-form" wire:submit.prevent="withdrawMpesa" id="withdrawMpesa">
                             @csrf
                             @if(session()->has('status'))
                                 {{ session('status') }}
@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <div class="contact-form card-body">
-                        <form class="theme-form" wire:submit.prevent="withdrawPaypal">
+                        <form class="theme-form" wire:submit.prevent="withdrawPaypal" id="withdrawPaypal">
                             @csrf
                             @if(session()->has('status'))
                                 {{ session('status') }}

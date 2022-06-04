@@ -19,6 +19,7 @@ class SettingsComponent extends Component
     public $profession;
     public $description;
     public $photo;
+    public $image;
     public $edit_image;
 
     public function mount()
@@ -94,21 +95,19 @@ class SettingsComponent extends Component
     {
         session::flash('started','started image');
         $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $imageName = md5(Auth::user()->userid).Carbon::now()->timestamp . '.' . $this->photo->extension();
-        $this->photo->storeAs('/users/', $imageName,['disk' => 'real_public']);
+        $imageName = md5(Auth::user()->userid).Carbon::now()->timestamp . '.' . $this->image->extension();
+        $this->image->storeAs('/users/', $imageName,['disk' => 'real_public']);
 
         $user = User::where(['userid'=> Auth::user()->userid])->first();
-//        if (!is_null($user)) {
-//            $file = public_path('assets/images/users/' . $user->photo);
-//            if (file_exists($file)) {
-//                unlink(public_path('assets/images/users' . '/' . $user->photo));
-//            }
-//        }
+            $file = public_path('/users/' . $user->photo);
+            if (file_exists($file)) {
+                unlink(public_path('/users' . '/' . $user->photo));
+            }
         $user->photo = $imageName;
         $user->save();
-        $this->photo = $imageName;
+        $this->image = $imageName;
         $this->dispatchBrowserEvent('swal:modal',[
             'type' => "warning",
             'title'=> "yeey!",
