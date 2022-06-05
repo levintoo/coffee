@@ -53,4 +53,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+      'photo_url',
+    ];
+
+    public function getPhotoUrlAttribute()
+    {
+        $this->photo ? $photurl = $this->photo : $photurl = "user.png";
+        return $photurl;
+    }
 }
