@@ -40,7 +40,7 @@
 <body>
 <section></section>
 @yield('content')
-<script src="{{ asset('assets/js/font-awesome-v5.15.4/all.min.js') }}"></script>
+<script src="{{ asset('js/font-awesome-6.1.1/all.min.js') }}"></script>
 <!-- latest jquery-->
 <script src="{{ asset('assets/js/jquery/jquery-3.6.0.min.js') }}"></script>
 <!-- Bootstrap js-->

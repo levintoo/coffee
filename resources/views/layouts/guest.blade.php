@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/font-awesome.css') }}">
+
     <!-- ico-font-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/icofont.css') }}">
     <!-- Themify icon-->
@@ -42,7 +43,6 @@
 <body>
 <section></section>
 {{ $slot }}
-<script src="{{ asset('js/font-awesome-6.1.1/all.min.js') }}"></script>
 <!-- latest jquery-->
 <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 <!-- Bootstrap js-->
@@ -55,6 +55,7 @@
 <script src="{{ asset('assets/js/config.js') }}"></script>
 <!-- Plugins JS start-->
 <script src="{{ asset('assets/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('js/font-awesome-6.1.1/all.min.js') }}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets/js/script.js') }}"></script>

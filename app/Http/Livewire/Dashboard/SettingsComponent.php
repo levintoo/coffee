@@ -83,13 +83,12 @@ class SettingsComponent extends Component
     }
     public function editImage()
     {
-        $this->edit_image = 1;
+        $this->dispatchBrowserEvent('edit-image:modal',[]);
     }
     public function closeEditImage()
     {
-        $this->edit_image = 0;
+        $this->dispatchBrowserEvent('close-edit-image:modal',[]);
     }
-
     use WithFileUploads;
     public function uploadImage()
     {

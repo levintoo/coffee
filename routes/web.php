@@ -55,10 +55,10 @@ Route::middleware('auth')->group(function () {
             ->name('mpesa.withdraw');
         Route::post('/paypal/withdraw', [PaypalPaymentController::class, 'withdraw'])
             ->name('paypal.withdraw');
-        Route::group(['middleware' => ['role:admin']], function () {
+//        Route::group(['middleware' => ['role:admin']], function () {
             Route::get('/admin', HomeComponent::class)
                 ->name('admin.home');
-        });
+//        });
 
     });
 });

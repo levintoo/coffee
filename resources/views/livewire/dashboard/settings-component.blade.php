@@ -1,3 +1,11 @@
+@push('styles')
+    <style>
+        .d-block-ease{
+            display: block;
+            transition: all 2s ease !important;
+        }
+    </style>
+    @endpush
     <div class="page-body">
     <div class="container-fluid">
         <div class="page-title">
@@ -67,7 +75,7 @@
                             <div class="avatar avatar-xl position-relative">
 {{--                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo">Open modal for @mdo</button>--}}
 
-                                <div class="modal fade @if($edit_image > 0) show d-block @endif" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade show" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -94,7 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                 @if($edit_image > 0)<div class="modal-backdrop fade show"></div>@endif
+{{--                                 <div class="modalBackdrop fade show"></div>--}}
                                 <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
                             </div>
                         </div>
@@ -425,6 +433,12 @@
 
 @push('scripts')
         <script>
+            window.addEventListener('edit-image:modal', event => {
+                document.querySelector('#exampleModalfat').classList.toggle("d-block","d-block-ease");
+            });
+            // window.addEventListener('close-edit-image:modal', event => {
+            //     document.querySelector('#exampleModalfat').classList.remove("d-block-ease");
+            // });
             window.addEventListener('swal:modal', event => {
                 swal.fire({
                     title: event.detail.title,
