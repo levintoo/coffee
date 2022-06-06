@@ -25,24 +25,29 @@ class HomeComponent extends Component
             if($this->status == "1") {
                 if($this->sort_value == "1") {
                     $users = User::withoutTrashed()
+                        ->where('status', '1')
                         ->orderBy('created_at', 'ASC')
                         ->paginate($this->pagesize);
                 }elseif($this->sort_value == "2") {
                     $users = User::withoutTrashed()
+                        ->where('status', '1')
                         ->orderBy('created_at', 'DESC')
                         ->paginate($this->pagesize);
                 }
                 elseif($this->sort_value == "3") {
                     $users = User::withoutTrashed()
+                        ->where('status', '1')
                         ->orderBy('name', 'ASC')
                         ->paginate($this->pagesize);
                 }
                 elseif($this->sort_value == "4") {
                     $users = User::withoutTrashed()
+                        ->where('status', '1')
                         ->orderBy('name', 'DESC')
                         ->paginate($this->pagesize);
                 }else{
                     $users = User::withoutTrashed()
+                        ->where('status', '1')
                         ->orderBy('created_at', 'DESC')
                         ->paginate($this->pagesize);
                 }
@@ -120,11 +125,14 @@ class HomeComponent extends Component
                 }
             }
         }else{
-                $users = User::where('name', 'LIKE', "%$this->search_value%")
-                    ->orwhere('username', 'LIKE', "%$this->search_value%")
-                    ->orwhere('email', 'LIKE', "%$this->search_value%")
-                    ->orwhere('phone', 'LIKE', "%$this->search_value%")
-                    ->withoutTrashed()->orderBy('created_at', 'DESC')
+                $users = User::withoutTrashed()
+                    ->where(function ($q) {
+                        $q->where('name', 'LIKE', "%$this->search_value%")
+                            ->orwhere('username', 'LIKE', "%$this->search_value%")
+                            ->orwhere('email', 'LIKE', "%$this->search_value%")
+                            ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                    })
+                    ->orderBy('created_at', 'DESC')
                     ->paginate($this->pagesize);
         }
         return view('livewire.admin.home-component',['users'=>$users])->layout('layouts.dashboard');
