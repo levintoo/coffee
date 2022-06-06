@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -132,7 +134,6 @@ class HomeComponent extends Component
                 }
             }
         }
-
         // if a value is typed in search bar
         else {
             // if status is active
@@ -151,7 +152,7 @@ class HomeComponent extends Component
                 } elseif ($this->sort_value == "2") {
                     $users = User::withoutTrashed()
                         ->where('status', '1')
-                                                ->where(function ($q) {
+                        ->where(function ($q) {
                             $q->where('name', 'LIKE', "%$this->search_value%")
                                 ->orwhere('username', 'LIKE', "%$this->search_value%")
                                 ->orwhere('email', 'LIKE', "%$this->search_value%")
@@ -363,5 +364,36 @@ class HomeComponent extends Component
             }
         }
         return view('livewire.admin.home-component',['users'=>$users])->layout('layouts.dashboard');
+    }
+    public function resetFilters()
+    {
+        $this->sort_value = "";
+        $this->search_value = "";
+    }
+    public function resetPassword($email)
+    {
+
+        $this->email = $email;
+        $this->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink(
+            ['email'=> $email]
+        );
+
+       $status === Password::RESET_LINK_SENT
+            ? $this->dispatchBrowserEvent('swal:modal',[
+           'type' => "success",
+           'title'=> "Good job!",
+           'text'=> "We have emailed $email a password reset link!",
+           'icon'=> "success",
+           'button'=> "close!",
+       ])
+            : $this->dispatchBrowserEvent('swal:modal',[
+           'type' => "warning",
+           'title'=> "Error!",
+           'text'=> "An unexpected error occurred",
+           'icon'=> "warning",
+           'button'=> "close!",
+       ]);
     }
 }
