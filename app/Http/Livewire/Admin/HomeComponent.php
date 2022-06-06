@@ -21,7 +21,9 @@ class HomeComponent extends Component
     }
     public function render()
     {
+        // if nothing is typed in search bar
         if (is_null($this->search_value) || $this->search_value == "") {
+            // if status is active
             if($this->status == "1") {
                 if($this->sort_value == "1") {
                     $users = User::withoutTrashed()
@@ -51,7 +53,9 @@ class HomeComponent extends Component
                         ->orderBy('created_at', 'DESC')
                         ->paginate($this->pagesize);
                 }
-            }elseif($this->status == "2"){
+            }
+            // if status is deleted
+            elseif($this->status == "2"){
                 if($this->sort_value == "1") {
                     $users = User::onlyTrashed()
                         ->orderBy('created_at', 'ASC')
@@ -73,7 +77,9 @@ class HomeComponent extends Component
                         ->orderBy('created_at', 'DESC')
                         ->paginate($this->pagesize);
                 }
-            }elseif($this->status == "3"){
+            }
+            // if status is suspended
+            elseif($this->status == "3"){
                 if($this->sort_value == "1") {
                     $users = User::withTrashed()
                         ->where('status', '2')
@@ -87,12 +93,12 @@ class HomeComponent extends Component
                 }elseif($this->sort_value == "3") {
                     $users = User::withTrashed()
                         ->where('status', '2')
-                        ->orderBy('created_at', 'ASC')
+                        ->orderBy('name', 'ASC')
                         ->paginate($this->pagesize);
                 }elseif($this->sort_value == "4") {
                     $users = User::withTrashed()
                         ->where('status', '2')
-                        ->orderBy('created_at', 'DESC')
+                        ->orderBy('name', 'DESC')
                         ->paginate($this->pagesize);
                 }else {
                         $users = User::withTrashed()
@@ -101,6 +107,7 @@ class HomeComponent extends Component
                             ->paginate($this->pagesize);
                 }
             }
+            // if status is default
             else{
                 if($this->sort_value == "1") {
                     $users = User::withoutTrashed()
@@ -124,16 +131,236 @@ class HomeComponent extends Component
                         ->paginate($this->pagesize);
                 }
             }
-        }else{
-                $users = User::withoutTrashed()
-                    ->where(function ($q) {
-                        $q->where('name', 'LIKE', "%$this->search_value%")
-                            ->orwhere('username', 'LIKE', "%$this->search_value%")
-                            ->orwhere('email', 'LIKE', "%$this->search_value%")
-                            ->orwhere('phone', 'LIKE', "%$this->search_value%");
-                    })
-                    ->orderBy('created_at', 'DESC')
-                    ->paginate($this->pagesize);
+        }
+
+        // if a value is typed in search bar
+        else {
+            // if status is active
+            if ($this->status == "1") {
+                if ($this->sort_value == "1") {
+                    $users = User::withoutTrashed()
+                        ->where('status', '1')
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "2") {
+                    $users = User::withoutTrashed()
+                        ->where('status', '1')
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "3") {
+                    $users = User::withoutTrashed()
+                        ->where('status', '1')
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "4") {
+                    $users = User::withoutTrashed()
+                        ->where('status', '1')
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'DESC')
+                        ->paginate($this->pagesize);
+                } else {
+                    $users = User::withoutTrashed()
+                        ->where('status', '1')
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                }
+            }
+            // if status is deleted
+            elseif ($this->status == "2") {
+                if ($this->sort_value == "1") {
+                    $users = User::onlyTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "2") {
+                    $users = User::onlyTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "3") {
+                    $users = User::onlyTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "4") {
+                    $users = User::onlyTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'DESC')
+                        ->paginate($this->pagesize);
+                } else {
+                    $users = User::onlyTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                }
+            }
+            // if status is suspended
+            elseif($this->status == "3"){
+                if($this->sort_value == "1") {
+                    $users = User::withTrashed()
+                        ->where('status', '2')
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'ASC')
+                        ->paginate($this->pagesize);
+                }elseif($this->sort_value == "2") {
+                    $users = User::withTrashed()
+                        ->where('status', '2')
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                }elseif($this->sort_value == "3") {
+                    $users = User::withTrashed()
+                        ->where('status', '2')
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'ASC')
+                        ->paginate($this->pagesize);
+                }elseif($this->sort_value == "4") {
+                    $users = User::withTrashed()
+                        ->where('status', '2')
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'DESC')
+                        ->paginate($this->pagesize);
+                }else {
+                    $users = User::withTrashed()
+                        ->where('status', '2')
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                }
+            }
+            // if status is default
+            else {
+                if ($this->sort_value == "1") {
+                    $users = User::withoutTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "2") {
+                    $users = User::withoutTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "3") {
+                    $users = User::withoutTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'ASC')
+                        ->paginate($this->pagesize);
+                } elseif ($this->sort_value == "4") {
+                    $users = User::withoutTrashed()
+                                                ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('name', 'DESC')
+                        ->paginate($this->pagesize);
+                } else {
+                    $users = User::withoutTrashed()
+                        ->where(function ($q) {
+                            $q->where('name', 'LIKE', "%$this->search_value%")
+                                ->orwhere('username', 'LIKE', "%$this->search_value%")
+                                ->orwhere('email', 'LIKE', "%$this->search_value%")
+                                ->orwhere('phone', 'LIKE', "%$this->search_value%");
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->pagesize);
+                }
+            }
         }
         return view('livewire.admin.home-component',['users'=>$users])->layout('layouts.dashboard');
     }
