@@ -30,26 +30,9 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="media">
-                                                    <label class="email-chek d-block">
-                                                        <input class="checkbox_animated" type="checkbox" checked="">
-                                                    </label>
                                                     <div class="media-body">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-primary dropdown-toggle"
-                                                                    id="dropdownMenuButton" type="button"
-                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">Action
-                                                            </button>
-                                                            <div class="dropdown-menu"
-                                                                 aria-labelledby="dropdownMenuButton" style=""><a
-                                                                    class="dropdown-item" href="javascript:void(0)">Refresh</a><a
-                                                                    class="dropdown-item" href="javascript:void(0)">Mark
-                                                                    as important</a><a class="dropdown-item"
-                                                                                       href="javascript:void(0)">Move to
-                                                                    span</a><a class="dropdown-item"
-                                                                               href="javascript:void(0)">Move to
-                                                                    trush </a></div>
-                                                        </div>
+                                                        <h3>Latest Notifications</h3>
+                                                        <span>All the latest notifications appear here</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,9 +46,7 @@
                                             @if($notification->status > 0)
                                             <div class="media" style="background: rgba(75,80,103,0.02)">
                                                 <div class="media-size-email">
-                                                    <label class="d-block mb-0">
-                                                        <input class="checkbox_animated" type="checkbox">
-                                                    </label><img class="me-3 rounded-circle"
+                                                    <img class="me-3 rounded-circle"
                                                                  src="../assets/images/user/user.png" alt="" wire:click="setModalTitle({{ $notification->id }})">
                                                 </div>
                                                 <div class="media-body" style="cursor: pointer" wire:click="setModalTitle({{ $notification->id }})">
