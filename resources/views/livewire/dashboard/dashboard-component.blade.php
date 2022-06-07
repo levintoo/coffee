@@ -18,103 +18,75 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid default-dash">
         <div class="row">
-            <div class="col-xl-4 col-md-6 dash-31 dash-xl-50">
-                <div class="card recent-activity">
-                    <div class="card-header card-no-border">
-                        <div class="media media-dashboard">
+            <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                    <div class="card-body">
+                        <div class="media static-widget">
                             <div class="media-body">
-                                <h5 class="mb-0">Recent Activity      </h5>
+                                <h6 class="font-roboto">Balance</h6>
+                                <h4 class="mb-0 counter">{{ number_format($wallet, 0)}}</h4>
                             </div>
-                            <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
-                                <div class="icon-box-show onhover-show-div">
-                                    <ul>
-                                        <li> <a>
-                                                Latest </a></li>
-                                        <li> <a>
-                                                Earlist</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <svg class="fill-primary" width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22.5938 14.1562V17.2278C20.9604 17.8102 19.7812 19.3566 19.7812 21.1875C19.7812 23.5138 21.6737 25.4062 24 25.4062C24.7759 25.4062 25.4062 26.0366 25.4062 26.8125C25.4062 27.5884 24.7759 28.2188 24 28.2188C23.2241 28.2188 22.5938 27.5884 22.5938 26.8125H19.7812C19.7812 28.6434 20.9604 30.1898 22.5938 30.7722V33.8438H25.4062V30.7722C27.0396 30.1898 28.2188 28.6434 28.2188 26.8125C28.2188 24.4862 26.3263 22.5938 24 22.5938C23.2241 22.5938 22.5938 21.9634 22.5938 21.1875C22.5938 20.4116 23.2241 19.7812 24 19.7812C24.7759 19.7812 25.4062 20.4116 25.4062 21.1875H28.2188C28.2188 19.3566 27.0396 17.8102 25.4062 17.2278V14.1562H22.5938Z"></path>
+                                <path
+                                    d="M25.4062 0V11.4859C31.2498 12.1433 35.8642 16.7579 36.5232 22.5938H48C47.2954 10.5189 37.4829 0.704531 25.4062 0Z"></path>
+                                <path
+                                    d="M14.1556 31.8558C12.4237 29.6903 11.3438 26.9823 11.3438 24C11.3438 17.5025 16.283 12.1958 22.5938 11.4859V0C10.0492 0.731813 0 11.2718 0 24C0 30.0952 2.39381 35.6398 6.14897 39.8624L14.1556 31.8558Z"></path>
+                                <path
+                                    d="M47.9977 25.4062H36.5143C35.8044 31.717 30.4977 36.6562 24.0002 36.6562C21.0179 36.6562 18.3099 35.5763 16.1444 33.8444L8.13779 41.851C12.3604 45.6062 17.905 48 24.0002 48C36.7284 48 47.2659 37.9508 47.9977 25.4062Z"></path>
+                            </svg>
                         </div>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="table-responsive custom-scrollbar">
-                            <table class="table table-bordernone">
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/teacher.png') }}" alt=""></div>
-                                            <div class="media-body"><a href="user-profile.html">
-                                                    <h5>Alana Brady added new event</h5></a>
-                                                <p class="font-primary">Sunday Cooking Class</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-light-theme-light font-theme-light">2 hours ago   </span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/teenager.png') }}" alt=""></div>
-                                            <div class="media-body"><a href="user-profile.html">
-                                                    <h5>Lena Burton added new</h5></a>
-                                                <p>Comment on <span class="font-primary">Vegetarian food fest</span></p>
-                                                <div class="activity-msg"> <span class="activity-msg-box">
-                                       Again this was our mistake, we are truly sorry for not adhering to a strictly non animal product event.</span></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>   <span class="badge badge-light-theme-light font-theme-light">10 jul 2020</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/chinese.png') }}" alt=""></div>
-                                            <div class="media-body image-swipe"><a href="user-profile.html">
-                                                    <h5>Max Simmons attached 2</h5></a>
-                                                <p>photos to <span class="font-primary">Food photography Class</span></p>
-                                                <div class="my-gallery" itemscope="">
-                                                    <div class="row gallery">
-                                                        <figure class="inner-img ms-3" itemprop="associatedMedia" itemscope=""><a href="{{ asset('assets/images/dashboard/img-26.jpg') }}" itemprop="contentUrl" data-size="600x600"><img class="img-fluid img-40" src="{{ asset('assets/images/dashboard/img-26.jpg') }}" itemprop="thumbnail" alt="Image description"></a>
-                                                            <figcaption itemprop="caption description">Photos 1</figcaption>
-                                                        </figure>
-                                                        <figure class="inner-img ms-3" itemprop="associatedMedia" itemscope=""><a href="{{ asset('assets/images/dashboard/image-20.jpg') }}" itemprop="contentUrl" data-size="600x600"><img class="img-fluid img-40" src="{{ asset('assets/images/dashboard/image-20.jpg') }}" itemprop="thumbnail" alt="Image description"></a>
-                                                            <figcaption itemprop="caption description">Photos 2  </figcaption>
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-light-theme-light font-theme-light">22 Jun 2020</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="progress-widget">
+                            <div class="progress sm-progress-bar progress-animate">
+                                <div class="progress-gradient-primary" role="progressbar"
+                                     style="width: {{$wallet/500*100}}%" aria-valuenow="90" aria-valuemin="0"
+                                     aria-valuemax="100"><span class="animate-circle"></span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 dash-35 dash-xl-50">
+            <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                    <div class="card-body">
+                        <div class="media static-widget">
+                            <div class="media-body">
+                                <h6 class="font-roboto">Today's earning</h6>
+                                <h4 class="mb-0 counter">{{ number_format($todaysearning, 0)}}</h4>
+                            </div>
+                            <svg class="@if($wallet>0){{"fill-success"}}@else {{"fill-danger"}}@endif" width="48"
+                                 height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22.5938 14.1562V17.2278C20.9604 17.8102 19.7812 19.3566 19.7812 21.1875C19.7812 23.5138 21.6737 25.4062 24 25.4062C24.7759 25.4062 25.4062 26.0366 25.4062 26.8125C25.4062 27.5884 24.7759 28.2188 24 28.2188C23.2241 28.2188 22.5938 27.5884 22.5938 26.8125H19.7812C19.7812 28.6434 20.9604 30.1898 22.5938 30.7722V33.8438H25.4062V30.7722C27.0396 30.1898 28.2188 28.6434 28.2188 26.8125C28.2188 24.4862 26.3263 22.5938 24 22.5938C23.2241 22.5938 22.5938 21.9634 22.5938 21.1875C22.5938 20.4116 23.2241 19.7812 24 19.7812C24.7759 19.7812 25.4062 20.4116 25.4062 21.1875H28.2188C28.2188 19.3566 27.0396 17.8102 25.4062 17.2278V14.1562H22.5938Z"></path>
+                                <path
+                                    d="M25.4062 0V11.4859C31.2498 12.1433 35.8642 16.7579 36.5232 22.5938H48C47.2954 10.5189 37.4829 0.704531 25.4062 0Z"></path>
+                                <path
+                                    d="M14.1556 31.8558C12.4237 29.6903 11.3438 26.9823 11.3438 24C11.3438 17.5025 16.283 12.1958 22.5938 11.4859V0C10.0492 0.731813 0 11.2718 0 24C0 30.0952 2.39381 35.6398 6.14897 39.8624L14.1556 31.8558Z"></path>
+                                <path
+                                    d="M47.9977 25.4062H36.5143C35.8044 31.717 30.4977 36.6562 24.0002 36.6562C21.0179 36.6562 18.3099 35.5763 16.1444 33.8444L8.13779 41.851C12.3604 45.6062 17.905 48 24.0002 48C36.7284 48 47.2659 37.9508 47.9977 25.4062Z"></path>
+                            </svg>
+                        </div>
+                        <div class="progress-widget">
+                            <div class="progress sm-progress-bar progress-animate">
+                                <div
+                                    class="@if($wallet>0){{"progress-gradient-success"}}@else {{"progress-gradient-danger"}}@endif"
+                                    role="progressbar" style="width: {{$todaysearning/500*100}}%" aria-valuenow="90"
+                                    aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-md-12">
                 <div class="card ongoing-project">
                     <div class="card-header card-no-border">
                         <div class="media media-dashboard">
                             <div class="media-body">
-                                <h5 class="mb-0">Ongoing Projects         </h5>
+                                <h5 class="mb-0">Recent Transactions         </h5>
                             </div>
-                            <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
-                                <div class="icon-box-show onhover-show-div">
-                                    <ul>
-                                        <li> <a>
-                                                Done</a></li>
-                                        <li> <a>
-                                                Pending</a></li>
-                                        <li> <a>
-                                                Rejected</a></li>
-                                        <li> <a>In Progress</a></li>
-                                    </ul>
-                                </div>
+                            <div class=""><a href="{{ route('transactions') }}" class="btn btn-info">view more</a>
                             </div>
                         </div>
                     </div>
@@ -123,120 +95,66 @@
                             <table class="table table-bordernone">
                                 <thead>
                                 <tr>
-                                    <th> <span>Name </span></th>
-                                    <th> <span>Date</span></th>
-                                    <th> <span>Project </span></th>
+                                    <th> <span>Payment Method </span></th>
+                                    <th> <span>Transacted At </span></th>
+                                    <th> <span>Purpose </span></th>
+                                    <th> <span>Amount </span></th>
                                     <th> <span>Status   </span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/boy.png') }}" alt=""></div>
-                                            <div class="media-body ps-2">
-                                                <div class="avatar-details"><a href="product-page.html">
-                                                        <h6>Gary</h6></a><span> UK Desig Team</span></div>
+                                @foreach($transactions as $transaction)
+                                    <tr>
+                                        <td>
+                                            <div class="media">
+                                                <div class="square-box me-2">
+                                                    <img class="img-fluid b-r-5" src="{{ asset('assets/images/payment/'.$transaction->image) }}" alt="">
+                                                </div>
+                                                <div class="media-body ps-2">
+                                                    <div class="avatar-details"><a href="#">
+
+                                                            <h6>{{$transaction->mode_of_payment}}</h6></a><span>${{ number_format($transaction->amount, 0)}}</span></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="img-content-box">
-                                        <h6>12 May 2020</h6><span>In 6 Days</span>
-                                    </td>
-                                    <td>
-                                        <h6>Product Design</h6><span>$7,800</span>
-                                    </td>
-                                    <td>
-                                        <div class="badge badge-light-primary">Done</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/girl.png') }}" alt=""></div>
-                                            <div class="media-body ps-2">
-                                                <div class="avatar-details"><a href="product-page.html">
-                                                        <h6>Ralph Waters</h6></a><span> UX Ninjas</span></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="img-content-box">
-                                        <h6>06 May 2020</h6><span>Overdue</span>
-                                    </td>
-                                    <td>
-                                        <h6>Concept Design</h6><span>$670</span>
-                                    </td>
-                                    <td>
-                                        <div class="badge badge-light-secondary">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/man.png') }}" alt=""></div>
-                                            <div class="media-body ps-2">
-                                                <div class="avatar-details"><a href="product-page.html">
-                                                        <h6>Edwin Day</h6></a><span> SF Dev Team</span></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="img-content-box">
-                                        <h6>28 Sep 2020</h6><span>in 4 Months</span>
-                                    </td>
-                                    <td>
-                                        <h6>UX Consulting</h6><span>$7,889</span>
-                                    </td>
-                                    <td>
-                                        <div class="badge badge-light-danger">Rejected</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="square-box me-2"><img class="img-fluid b-r-5" src="{{ asset('assets/images/avtar/woman.png') }}" alt=""></div>
-                                            <div class="media-body ps-2">
-                                                <div class="avatar-details"><a href="product-page.html">
-                                                        <h6>Gary</h6></a><span> UK Desig Team</span></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="img-content-box">
-                                        <h6>12 May 2020</h6><span>In 6 Days</span>
-                                    </td>
-                                    <td>
-                                        <h6>Product Design</h6><span>Toyota</span>
-                                    </td>
-                                    <td>
-                                        <div class="badge badge-light-info">In Progress</div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="img-content-box">
+                                            <h6> {{ $transaction->readable_transacted_at_day }}</h6><span>
+                                               {{$transaction->readable_transacted_at_time}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <h6>{{$transaction->purpose}}</h6>
+                                        </td>
+                                        <td>
+
+                                            @if($transaction->type == 'debit')
+                                                <h6 class="text-danger">-{{$transaction->amount}}</h6>
+                                            @elseif($transaction->type == 'credit')
+                                                <h6 class="text-success">+{{$transaction->amount}}</h6>
+                                            @else
+                                                <h6>{{$transaction->amount}}</h6>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($transaction->status == '1')
+                                                <div class="badge badge-light-info my-1">pending</div>
+                                            @elseif($transaction->status == '2')
+                                                <div class="badge badge-light-success my-1">completed</div>
+                                            @elseif($transaction->status == '3')
+                                                <div class="badge badge-light-secondary my-1">failed</div>
+                                            @elseif($transaction->status == '4')
+                                                <div class="badge badge-light-danger my-1">cancelled</div>
+                                            @endif
+                                            {{--                                            <div class="badge badge-light-primary">Regular</div>--}}
+                                            {{--                                                <div class="badge badge-light-info">In Progress</div>--}}
+                                            {{--                                                <div class="badge badge-light-danger">Rejected</div>--}}
+                                            {{--                                                <div class="badge badge-light-secondary">Pending</div>--}}
+
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 dash-xl-50">
-                <div class="card pb-0 o-hidden earning-card">
-                    <div class="card-header earning-back"></div>
-                    <div class="card-body p-0">
-                        <div class="earning-content"><img class="img-fluid" src="{{ asset('assets/images/avatar.jpg') }}" alt=""><a href="blog-single.html">
-                                <h4>Today's Earning</h4></a><span>(Mon 15 - Sun 21)</span>
-                            <h6>$573.67</h6>
-                            <div id="earning-chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 dash-xl-50">
-                <div class="card yearly-chart">
-                    <div class="card-header card-no-border pb-0">
-                        <h5 class="pb-2">$3,500,000</h5>
-                        <h6 class="font-theme-light f-14 m-0">November 2021</h6>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div>
-                            <div id="yearly-chart"></div>
                         </div>
                     </div>
                 </div>

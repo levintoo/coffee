@@ -41,6 +41,5 @@ class NotificationsComponent extends Component
         $noty = Notification::where(['userid'=>Auth::user()->userid,'id'=>$id])->first();
         $noty->status = '1';
         $noty->save();
-        $this->emitTo('dashboard.popup-notification', 'refreshComponent');
     }
 }

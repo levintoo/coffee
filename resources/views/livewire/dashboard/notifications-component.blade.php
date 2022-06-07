@@ -47,7 +47,7 @@
                                             <div class="media" style="background: rgba(75,80,103,0.02)">
                                                 <div class="media-size-email">
                                                     <img class="me-3 rounded-circle"
-                                                                 src="../assets/images/user/user.png" alt="" wire:click="setModalTitle({{ $notification->id }})">
+                                                                 src="{{ asset('assets/images/user/user.png') }}" alt="" wire:click="setModalTitle({{ $notification->id }})">
                                                 </div>
                                                 <div class="media-body" style="cursor: pointer" wire:click="setModalTitle({{ $notification->id }})">
                                                     <h6 class="f-w-300">{{ $notification->title }} </h6>
@@ -60,10 +60,8 @@
                                             @else
                                             <div class="media">
                                                 <div class="media-size-email">
-                                                    <label class="d-block mb-0">
-                                                        <input class="checkbox_animated" type="checkbox" checked="">
-                                                    </label><img class="me-3 rounded-circle"
-                                                                 src="../assets/images/user/user.png" alt="" wire:click.prefetch="setModalTitle({{ $notification->id }})">
+                                                   <img class="me-3 rounded-circle"
+                                                                 src="{{ asset('assets/images/user/user.png') }}" alt="" wire:click.prefetch="setModalTitle({{ $notification->id }})">
                                                 </div>
                                                 <div class="media-body" style="cursor: pointer" wire:click.prefetch="setModalTitle({{ $notification->id }})" >
                                                     <h6>{{ $notification->title }}</h6>
