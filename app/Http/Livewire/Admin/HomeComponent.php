@@ -129,6 +129,7 @@ class HomeComponent extends Component
                         ->paginate($this->pagesize);
                 }else {
                     $users = User::withoutTrashed()
+                    ->where('status', '1')
                         ->orderBy('created_at', 'DESC')
                         ->paginate($this->pagesize);
                 }

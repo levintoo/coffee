@@ -31,7 +31,7 @@ class Donate extends Component
         {
             abort(404);
         }
-        return view('livewire.donate',['username'=> $this->name])->layout('layouts.guest');
+        return view('livewire.donate',['username'=> $this->name,'photo_url' => $user->photo_url])->layout('layouts.guest');
     }
 
     protected $messages = [
