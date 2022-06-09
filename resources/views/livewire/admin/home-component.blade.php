@@ -1,9 +1,21 @@
+@push('styles')
+    <style>
+        .magic-float-bottom-left {
+            /* background-color: blue; */
+            position: fixed !important;
+            z-index: 1001;
+            /* right: 0 !important; */
+            top: 1.5rem !important;
+            left: 20rem !important;
+        }
+    </style>
+@endpush
 <div class="page-body">
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h3>Admin</h3>
+                    <h3>Manage Users</h3>
                 </div>
                 <div class="col-12 col-sm-6">
                     <ol class="breadcrumb">
@@ -73,7 +85,7 @@
                 </div>
                 </div>
                                             @endif
-                <div class="col-sm-6 col-md-3" wire:loading>
+                <div class="col-sm-6 col-md-3 magic-float-bottom-left" wire:loading>
                     <h6 class="sub-title mb-0 text-center">Loader 3</h6>
                     <div class="loader-box">
                         <div class="loader-3"></div>
