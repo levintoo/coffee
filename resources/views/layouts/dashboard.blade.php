@@ -279,7 +279,7 @@
                                     <span class="">Admin</span></a>
                                 <ul class="sidebar-submenu">
                                     <li><a href="{{ route('admin.home') }}">Manage Users</a></li>
-                                    <li><a href="">Manage Admins</a></li>
+                                    <li><a href="{{ route('admin.admins') }}">Manage Admins</a></li>
                                     <li><a href="">Add User</a></li>
                                     <li><a href="">Stats</a></li>
                                 </ul>

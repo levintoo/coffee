@@ -97,7 +97,7 @@
                         <div class="card custom-card">
 
                             <div class="card-profile  h-25"><img class="rounded-circle" src="{{ asset('users') }}/{{ $user->photo_url }}" alt="{{ $user->username }}"></div>
-                            <div class="text-center profile-details"><a href="user-profile.html">
+                            <div class="text-center profile-details"><a href="{{ route('admin.manage.user',$user->username) }}">
                                     <h4>{{ $user->name }}</h4></a>
                                 <h6 class="mb-1">{{ $user->username }}</h6>
                             @if($user->status == "1")

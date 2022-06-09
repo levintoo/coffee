@@ -60,12 +60,10 @@ Route::middleware('auth')->group(function () {
 //        Route::group(['middleware' => ['role:admin']], function () {
             Route::get('/admin', HomeComponent::class)
                 ->name('admin.home');
-            Route::get('/admin/manage-user', UserDetails::class)
+            Route::get('/admin/manage-user/{username}', UserDetails::class)
                 ->name('admin.manage.user');
-            Route::get('/admin/manage-admin', ManageAdmins::class)
-                ->name('admin.manage.admin');
-            Route::get('/admin/transaction-detail', ManageAdmins::class)
-                ->name('admin.transactions.detail');
+            Route::get('/admin/admins', ManageAdmins::class)
+                ->name('admin.admins');
 //        });
 
     });
