@@ -16,6 +16,7 @@ class HomeComponent extends Component
     public $search_value;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['delete','suspend'];
     public function mount()
     {
 //        $this->middleware(['role:admin']);
@@ -396,5 +397,103 @@ class HomeComponent extends Component
            'icon'=> "warning",
            'button'=> "close!",
        ]);
+    }
+
+    public function deleteUser($username)
+    {
+        $this->dispatchBrowserEvent('swal:confirmmodal',[
+            'title' => 'Warning!',
+            'text' => "Are you sure you want to remove ".$username,
+            'icon' => 'warning',
+            'showCancelButton' => 'true',
+            'confirmButtonText' => 'Yes, delete it!',
+            'cancelButtonText' => 'No, cancel!',
+            'reverseButtons' => 'true',
+            'username' => $username,
+        ]);
+    }
+    public function suspendUser($username)
+    {
+        $this->dispatchBrowserEvent('swal:suspendmodal',[
+            'title' => 'Warning!',
+            'text' => "Are you sure you want to suspend ".$username,
+            'icon' => 'warning',
+            'showCancelButton' => 'true',
+            'confirmButtonText' => 'Yes, suspend!',
+            'cancelButtonText' => 'No, cancel!',
+            'reverseButtons' => 'true',
+            'username' => $username,
+        ]);
+    }
+    public function delete($username)
+    {
+        $user = User::where('username',$username)->role(['admin','super-admin'])->first();
+        if(is_null($user))
+        {
+            $user = User::where('username',$username)->first();
+            if(!is_null($user)) {
+                $destroy = $user->delete();
+                $this->dispatchBrowserEvent('swal:modal',[
+                    'type' => "warning",
+                    'title' => "Success!",
+                    'text' => "User deleted sucesfully",
+                    'icon' => "success",
+                    'button' => "close!",
+                ]);
+            }else{
+                $this->dispatchBrowserEvent('swal:modal',[
+                    'type' => "warning",
+                    'title'=> "Error!",
+                    'text'=> "User does not exist",
+                    'icon'=> "warning",
+                    'button'=> "close!",
+                ]);
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Error!",
+                'text'=> "You cannot get rid of an admin",
+                'icon'=> "warning",
+                'button'=> "close!",
+            ]);
+        }
+    }
+    public function suspend($username)
+    {
+        $user = User::where('username',$username)->role(['admin','super-admin'])->first();
+        if(is_null($user))
+        {
+            $user = User::where('username',$username)->first();
+            if(!is_null($user)) {
+                $user->status = 2;
+                $user->save();
+                $this->dispatchBrowserEvent('swal:modal',[
+                    'type' => "warning",
+                    'title' => "Success!",
+                    'text' => "User suspended sucesfully",
+                    'icon' => "success",
+                    'button' => "close!",
+                ]);
+            }else{
+                $this->dispatchBrowserEvent('swal:modal',[
+                    'type' => "warning",
+                    'title'=> "Error!",
+                    'text'=> "User does not exist",
+                    'icon'=> "warning",
+                    'button'=> "close!",
+                ]);
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent('swal:modal',[
+                'type' => "warning",
+                'title'=> "Error!",
+                'text'=> "You cannot suspend an admin",
+                'icon'=> "warning",
+                'button'=> "close!",
+            ]);
+        }
     }
 }

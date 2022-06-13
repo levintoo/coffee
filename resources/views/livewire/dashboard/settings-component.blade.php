@@ -73,37 +73,18 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-sm-auto col-4">
                             <div class="avatar avatar-xl position-relative">
-{{--                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo">Open modal for @mdo</button>--}}
+                                @if ($image)
+                                    <img alt="" src="{{ $image->temporaryUrl() }}" class="img-70 rounded-circle border-radius-lg shadow-sm">
+                                    <input class="btn btn-success" type="submit" value="update">
+                                    <i class="fas fa-trash text-danger"></i>
+                                    <i class="fas fa-save text-success"></i>
+                                @else
+                                    <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
+                                    <label class="col-form-label" for="image-file"><i class="fas fa-pen"></i></label>
+                                    <input class="form-control" id="image-file" type="file" wire:model="image" hidden="true">
 
-                                <div class="modal fade show" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel2">New message</h5>
-                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="mb-3">
-                                                        <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                                        <input class="form-control" type="text" value="@fat">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="col-form-label" for="image-file">Image:</label>
-                                                        <input class="form-control" id="image-file" type="file" wire:model="image">
-                                                        @error('image') <span class="error">{{ $message }}</span> @enderror
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" wire:click="closeEditImage">Close</button>
-                                                <button class="btn btn-primary" type="button" data-bs-dismiss="modal" wire:click="uploadImage" >Send message</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-{{--                                 <div class="modalBackdrop fade show"></div>--}}
-                                <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
+                                @endif
+                                    @error('image') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-sm-auto col-8 my-auto">
@@ -433,12 +414,6 @@
 
 @push('scripts')
         <script>
-            window.addEventListener('edit-image:modal', event => {
-                document.querySelector('#exampleModalfat').classList.toggle("d-block","d-block-ease");
-            });
-            // window.addEventListener('close-edit-image:modal', event => {
-            //     document.querySelector('#exampleModalfat').classList.remove("d-block-ease");
-            // });
             window.addEventListener('swal:modal', event => {
                 swal.fire({
                     title: event.detail.title,
@@ -447,39 +422,5 @@
                     confirmButtonText: event.detail.button,
                 })
             });
-            window.addEventListener('swal:image-upload-modal', event => {
-                Swal.fire({
-                    title: 'Submit your Github username',
-                    input: 'text',
-                    inputAttributes: {
-                        autocapitalize: 'off'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Look up',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        return fetch(`http://127.0.0.1:8000/api/storeimage`)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error(response.statusText)
-                                }
-                                return response.json()
-                            })
-                            .catch(error => {
-                                Swal.showValidationMessage(
-                                    `Request failed: ${error}`
-                                )
-                            })
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log(result)
-                        Swal.fire({
-                            title: `${result}'s avatar`,
-                        })
-                    }
-                });
-            });
-        </script>
+          </script>
 @endpush
