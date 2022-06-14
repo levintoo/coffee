@@ -188,5 +188,8 @@ class WalletComponent extends Component
             'message' => $message,
             'status' => '0',
         ]);
+        $this->emitTo('dashboard.top-bar-notification-count', '$refresh');
+        $this->emitTo('dashboard.sidebar-notification-count', '$refresh');
     }
+
 }

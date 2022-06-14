@@ -41,5 +41,7 @@ class NotificationsComponent extends Component
         $noty = Notification::where(['userid'=>Auth::user()->userid,'id'=>$id])->first();
         $noty->status = '1';
         $noty->save();
+        $this->emitTo('dashboard.top-bar-notification-count', '$refresh');
+        $this->emitTo('dashboard.sidebar-notification-count', '$refresh');
     }
 }

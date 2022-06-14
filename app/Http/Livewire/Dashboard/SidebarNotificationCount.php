@@ -8,17 +8,15 @@ use Livewire\Component;
 
 class SidebarNotificationCount extends Component
 {
-    public $notifications_count;
-
-    public function mount()
-    {
-        $this->notifications_count = Notification::where('userid',Auth::user()->userid)
-            ->where('status' ,'=', '0')
-            ->count();
-    }
+    protected $listeners = [
+        '$refresh'
+    ];
 
     public function render()
     {
-        return view('livewire.dashboard.sidebar-notification-count');
+        $notifications_count = Notification::where('userid',Auth::user()->userid)
+            ->where('status' ,'=', '0')
+            ->count();
+        return view('livewire.dashboard.sidebar-notification-count',['notifications_count' => $notifications_count]);
     }
 }
