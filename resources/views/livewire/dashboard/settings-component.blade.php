@@ -395,7 +395,7 @@
                         <div class="d-flex align-items-center mb-sm-0 mb-4">
                             <div>
                                 <div class="form-check form-switch mb-0">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault0">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault0" wire:model="delete_account">
                                 </div>
                             </div>
                             <div class="ms-2">
@@ -403,8 +403,7 @@
                                 <span class="text-xs d-block">I want to delete my account.</span>
                             </div>
                         </div>
-                        <button class="btn btn-outline-secondary mb-0 ms-auto mx-1" type="button" name="button">Deactivate</button>
-                        <button class="btn btn-outline-danger mb-0 ms-auto" type="button" name="button">Delete Account</button>
+                        <button class="btn btn-outline-danger mb-0 ms-auto" type="button" name="button" wire:click="deleteAccount" @if(is_null($delete_account)) disabled="" @endif >Delete Account</button>
                     </div>
                 </div>
             </div>

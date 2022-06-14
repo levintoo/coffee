@@ -21,6 +21,7 @@ class SettingsComponent extends Component
     public $photo;
     public $image;
     public $edit_image;
+    public $delete_account;
 
     public function mount()
     {
@@ -55,6 +56,7 @@ class SettingsComponent extends Component
 
     public function updateUser()
     {
+        $this->username == Auth::user()->username ? $this->username = "" :
         $this->validate([
             'name' => 'string|max:255',
             'email' => 'string|email|max:25|unique:users',
@@ -64,15 +66,6 @@ class SettingsComponent extends Component
             'description' => 'string|max:2048',
             'profession' => 'string|max:255',
         ]);
-        $updated_user = User::where(['userid' => Auth::user()->userid])->first();
-//        $updated_user->phone = $this->phone;
-//        $updated_user->username = $this->username;
-        $updated_user->name = $this->name;
-//        $updated_user->country = $this->country;
-        $updated_user->description = $this->description;
-        $updated_user->profession = $this->profession;
-        $updated_user->save();
-
         $this->dispatchBrowserEvent('swal:modal',[
             'type' => "warning",
             'title'=> "yeey!",
@@ -112,6 +105,16 @@ class SettingsComponent extends Component
             'title'=> "yeey!",
             'text'=> "Profile has been successfully updated $imageName",
             'icon'=> "success",
+            'button'=> "close",
+        ]);
+    }
+    public function deleteAccount()
+    {
+        $this->dispatchBrowserEvent('swal:modal',[
+            'type' => "warning",
+            'title'=> "",
+            'text'=> "You think we can let you delete your account?",
+            'icon'=> "info",
             'button'=> "close",
         ]);
     }
