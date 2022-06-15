@@ -19,7 +19,7 @@ class HomeComponent extends Component
     protected $listeners = ['delete','suspend'];
     public function mount()
     {
-//        $this->middleware(['role:admin']);
+       $this->middleware(['role:admin']);
         $this->pagesize = 9;
     }
     public function render()

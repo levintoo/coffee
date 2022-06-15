@@ -11,6 +11,7 @@ class UserDetails extends Component
     public $role;
     public function mount($username)
     {
+       $this->middleware(['role:admin']);
         $user = User::select('username')->where('username',$username)->first();
         if(empty($user))
         {

@@ -17,7 +17,7 @@ class ManageAdmins extends Component
     protected $paginationTheme = 'bootstrap';
     public function mount()
     {
-//        $this->middleware(['role:admin']);
+       $this->middleware(['role:admin']);
         $this->pagesize = 9;
     }
     public function render()
