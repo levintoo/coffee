@@ -32,14 +32,13 @@ class SettingsComponent extends Component
         $this->country = Auth::user()->country;
         $this->description = Auth::user()->description;
         $this->profession = Auth::user()->profession;
-        $this->photo = Auth::user()->photo;
+        $this->photo = Auth::user()->photo_url;
         $this->edit_image = 0;
     }
 
     public function render()
     {
-        $user = User::where('userid',Auth::user()->userid);
-        return view('livewire.dashboard.settings-component',['user'=> $user])->layout('layouts.dashboard');
+        return view('livewire.dashboard.settings-component')->layout('layouts.dashboard');
     }
     public function updated($propertyName)
     {
