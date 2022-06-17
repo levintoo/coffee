@@ -79,7 +79,7 @@
                                     <i class="fas fa-trash text-danger"></i>
                                     <i class="fas fa-save text-success"></i>
                                 @else
-                                    <img src="{{ asset('users') }}/{{ $photo }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
+                                    <img src="{{ asset('users') }}/{{ $user->photo_url }}" alt="{{ $user->username }}" alt="{{ $name }}" class="img-70 rounded-circle border-radius-lg shadow-sm" wire:click="editImage">
                                     <label class="col-form-label" for="image-file"><i class="fas fa-pen"></i></label>
                                     <input class="form-control" id="image-file" type="file" wire:model="image" hidden="true">
 

@@ -38,7 +38,8 @@ class SettingsComponent extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.settings-component')->layout('layouts.dashboard');
+        $user = User::where('userid',Auth::user()->userid);
+        return view('livewire.dashboard.settings-component',['$user'=> $user])->layout('layouts.dashboard');
     }
     public function updated($propertyName)
     {
