@@ -22,16 +22,15 @@ class Donate extends Component
     public function mount($username)
     {
         $this->name = $username;
-        $this->other_amount = 20;
     }
     public function render()
     {
-        $user = User::select('username')->where('username',$this->name)->first();
+        $user = User::where('username',$this->name)->first();
         if(empty($user))
         {
             abort(404);
         }
-        return view('livewire.donate',['username'=> $this->name,'photo_url' => $user->photo_url])->layout('layouts.guest');
+        return view('livewire.donate',['user'=>  $user])->layout('layouts.guest');
     }
 
     protected $messages = [
