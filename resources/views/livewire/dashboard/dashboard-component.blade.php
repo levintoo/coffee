@@ -103,7 +103,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($transactions as $transaction)
+                                @forelse($transactions as $transaction)
                                     <tr>
                                         <td>
                                             <div class="media">
@@ -152,7 +152,11 @@
 
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @empty
+                                            <div class="my-4 d-flex justify-content-center">
+                                                <div class="fs-6">You have no notifications yet.</div>
+                                            </div>
+                                        @endforelse
                                 </tbody>
                             </table>
                         </div>
