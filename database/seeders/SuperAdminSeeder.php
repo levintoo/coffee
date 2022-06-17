@@ -34,7 +34,7 @@ class SuperAdminSeeder extends Seeder
             'profession' => 'profession',
             'status' => '1',
         ]);
-        $user->assignRole('regular-user');
+        $user->assignRole('admin');
         return $user;
 
     }
