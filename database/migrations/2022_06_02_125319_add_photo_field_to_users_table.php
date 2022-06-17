@@ -25,8 +25,6 @@ class AddPhotoFieldToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('photo');
-        });
+        Schema::dropIfExists('users');
     }
 }
