@@ -57,13 +57,13 @@ Route::middleware('auth')->group(function () {
             ->name('mpesa.withdraw');
         Route::post('/paypal/withdraw', [PaypalPaymentController::class, 'withdraw'])
             ->name('paypal.withdraw');
-            
-       Route::group(['middleware' => ['role:admin']], function () {
-            Route::get('/admin', HomeComponent::class)
+
+       Route::middleware(['role:admin|super-admin'])->prefix('admin')->group(function () {
+            Route::get('/', HomeComponent::class)
                 ->name('admin.home');
-            Route::get('/admin/manage-user/{username}', UserDetails::class)
+            Route::get('/manage-user/{username}', UserDetails::class)
                 ->name('admin.manage.user');
-            Route::get('/admin/admins', ManageAdmins::class)
+            Route::get('/admins', ManageAdmins::class)
                 ->name('admin.admins');
        });
 

@@ -275,18 +275,15 @@
                             <li class="sidebar-list"><a href="{{ route('settings') }}" class="sidebar-link sidebar-title link-nav" >
                                     <span class="">Settings</span></a>
                             </li>
+                            @role('admin|super-admin')
                             <li class="sidebar-list"><a class="sidebar-link sidebar-title" >
                                     <span class="">Admin</span></a>
                                 <ul class="sidebar-submenu">
                                     <li><a href="{{ route('admin.home') }}">Manage Users</a></li>
                                 </ul>
                             </li>
+                            @endrole
                         </ul>
-                        <div class="sidebar-img-section">
-                            <div class="sidebar-img-content"><img class="img-fluid" src="{{ asset('assets/images/side-bar.png') }}" alt="">
-                                <h4>Need Help ?</h4><a class="txt" href="https://pixelstrap.freshdesk.com/support/home">Raise ticket at "support@pixelstrap.com"</a><a class="btn btn-secondary" href="https://themeforest.net/user/pixelstrap/portfolio">Buy Now</a>
-                            </div>
-                        </div>
                     </div>
                     <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
                 </nav>

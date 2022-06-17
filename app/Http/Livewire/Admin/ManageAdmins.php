@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,7 +18,8 @@ class ManageAdmins extends Component
     protected $paginationTheme = 'bootstrap';
     public function mount()
     {
-       $this->middleware(['role:admin']);
+        $user = Auth::user();
+        $user->hasRole(['admin', 'super-admin']);
         $this->pagesize = 9;
     }
     public function render()

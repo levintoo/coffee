@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class UserDetails extends Component
@@ -11,7 +12,8 @@ class UserDetails extends Component
     public $role;
     public function mount($username)
     {
-       $this->middleware(['role:admin']);
+        $user = Auth::user();
+        $user->hasRole(['admin', 'super-admin']);
         $user = User::select('username')->where('username',$username)->first();
         if(empty($user))
         {

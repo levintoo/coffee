@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -19,7 +20,8 @@ class HomeComponent extends Component
     protected $listeners = ['delete','suspend'];
     public function mount()
     {
-       $this->middleware(['role:admin']);
+        $user = Auth::user();
+        $user->hasRole(['admin', 'super-admin']);
         $this->pagesize = 9;
     }
     public function render()
@@ -496,4 +498,5 @@ class HomeComponent extends Component
             ]);
         }
     }
+
 }
