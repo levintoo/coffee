@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\ManageAdmins;
 use App\Http\Livewire\Admin\UserDetails;
 use App\Http\Livewire\Dashboard\DashboardComponent;
 use App\Http\Livewire\Dashboard\DonationsComponent;
+use App\Http\Livewire\Dashboard\EditProfileComponent;
 use App\Http\Livewire\Dashboard\NotificationsComponent;
 use App\Http\Livewire\Dashboard\SettingsComponent;
 use App\Http\Livewire\Dashboard\TransactionsComponent;
@@ -61,8 +62,6 @@ Route::middleware('auth')->group(function () {
        Route::middleware(['role:admin|super-admin'])->prefix('admin')->group(function () {
             Route::get('/', HomeComponent::class)
                 ->name('admin.home');
-            Route::get('/manage-user/{username}', UserDetails::class)
-                ->name('admin.manage.user');
             Route::get('/admins', ManageAdmins::class)
                 ->name('admin.admins');
        });

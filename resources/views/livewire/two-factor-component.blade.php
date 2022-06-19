@@ -9,18 +9,16 @@
                     <h6 class="mt-2">
                         Please enter verification code sent to {{ $hid_phone }}
                     </h6>
-                    <div class="form-group">
+                    <div class="form-group mt-0">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
-                    </div>
-                    <div class="form-group">
                         <label for="otp" class="">{{ __('Verification Code') }}</label>
                         <div class="input-group"><span class="input-group-text"><i class="fas fa-key"></i></span>
 
-                            <input id="otp" type="number" class="form-control @error('otp') is-invalid @enderror" value="{{ old('otp') }}" required autocomplete="email" autofocus wire:model="otp">
+                            <input id="otp" type="number" class="form-control @error('otp') is-invalid @enderror" value="{{ old('otp') }}" required autocomplete="otp" autofocus wire:model="otp">
                             @error('otp')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

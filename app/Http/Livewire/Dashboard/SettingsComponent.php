@@ -44,8 +44,8 @@ class SettingsComponent extends Component
     {
         $this->validateOnly($propertyName,[
             'name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users',
-            'username' => 'string|max:255|unique:users',
+            'email' => 'string|email|max:255',
+            'username' => 'string|max:255',
             'phone' => 'numeric|digits_between:9,10',
             'country' => 'string|max:255',
             'description' => 'string|max:2048',
@@ -57,6 +57,8 @@ class SettingsComponent extends Component
     public function updateUser()
     {
         $this->username == Auth::user()->username ? $this->username = "" :
+        $this->email == Auth::user()->email ? $this->email = "" :
+        $this->phone == Auth::user()->phone ? $this->phone = "" :
         $this->validate([
             'name' => 'string|max:255',
             'email' => 'string|email|max:25|unique:users',

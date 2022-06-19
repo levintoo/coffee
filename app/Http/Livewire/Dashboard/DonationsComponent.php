@@ -17,13 +17,21 @@ class DonationsComponent extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $donations = Donation::where('userid',Auth::user()->userid)->where('status','=','2')->orderby('donated_at','DESC')->paginate($this->pagesize);
-        return view('livewire.dashboard.donations-component',['donations'=> $donations])->layout('layouts.dashboard');
+        $donations = Donation::where('userid',Auth::user()->userid)
+            ->where('status','=','2')
+            ->orderby('donated_at','DESC')
+            ->paginate($this->pagesize);
+
+        return view('livewire.dashboard.donations-component',[
+            'donations'=> $donations
+        ])->layout('layouts.dashboard');
     }
     public function showModal($id)
     {
         $this->modal_id = $id;
-        $modal_data = Donation::where('userid', Auth::user()->userid)->where('id', $this->modal_id)->first();
+        $modal_data = Donation::where('userid', Auth::user()->userid)
+            ->where('id', $this->modal_id)
+            ->first();
         $this->dispatchBrowserEvent('swal:modal',[
             'title' => '<span class="fs-6">'.$modal_data->name.' donated</span>' ,
             'html' => '<span class="fs-6">'.$modal_data->message.'</span>' ,

@@ -32,6 +32,10 @@ class DashboardComponent extends Component
         $wallet = Wallet::where('userid',Auth::user()->userid)
             ->first();
 
-        return view('livewire.dashboard.dashboard-component',['transactions' => $transactions, 'wallet' => $wallet->balance,'todaysearning' => $todaysearning])->layout('layouts.dashboard');
+        return view('livewire.dashboard.dashboard-component',[
+            'transactions' => $transactions,
+            'wallet' => $wallet->balance,
+            'todaysearning' => $todaysearning
+        ])->layout('layouts.dashboard');
     }
 }

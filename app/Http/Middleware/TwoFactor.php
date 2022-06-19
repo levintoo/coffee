@@ -22,7 +22,7 @@ class TwoFactor
         if (Session::has($twofactoridentifier)){
             return $next($request);
           }else{
-            return redirect()->route('twofactor')->withStatus('crap crap');
+            return redirect()->route('twofactor');
           }
     }
 }
