@@ -14,6 +14,7 @@ use App\Http\Livewire\Dashboard\SettingsComponent;
 use App\Http\Livewire\Dashboard\TransactionsComponent;
 use App\Http\Livewire\Dashboard\WalletComponent;
 use App\Http\Livewire\Donate;
+use App\Http\Livewire\ThankYouComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TwoFactorComponent;
@@ -31,7 +32,7 @@ use App\Http\Livewire\TwoFactorComponent;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 Auth::routes();
 Route::post('/login-authenticate', [\App\Http\Controllers\Auth\LoginController::class, 'authenticate'])
@@ -71,5 +72,5 @@ Route::middleware('auth')->group(function () {
 Route::post('/post/post', function (Request $request){
     return $request;
 })->name('post');
-
+Route::get('/thank-you', ThankYouComponent::class)->name('thank-you');
 Route::get('/{username}', Donate::class)->name('donate');

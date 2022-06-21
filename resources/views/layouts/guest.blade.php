@@ -37,6 +37,7 @@
     <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+
     @stack('styles')
     @livewireStyles
 </head>
@@ -44,7 +45,7 @@
 <section></section>
 {{ $slot }}
 <!-- latest jquery-->
-<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>zz
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 <!-- Bootstrap js-->
 <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <!-- feather icon js-->
