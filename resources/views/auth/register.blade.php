@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <fieldset>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="name">{{ __('Name') }}</label>
                                 <input id="name" type="text"
                                        class="form-control @error('name') is-invalid @enderror" name="name"
@@ -39,7 +39,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="username">{{ __('Username') }}</label>
 
                                 <div class="input-group">
@@ -55,7 +55,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="email"
                                 >{{ __('Email Address') }}</label>
 
@@ -77,7 +77,7 @@
                             </div>
                         </fieldset>
                         <fieldset>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="phone">{{ __('Phone') }}</label>
 
                                 <div class="input-group">
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="password">{{ __('Password') }}</label>
 
                                 <div class="input-group">
@@ -111,7 +111,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="password-confirm">{{ __('Confirm Password') }}</label>
 
                                 <div class="input-group">
@@ -126,7 +126,7 @@
                             </div>
                         </fieldset>
                         <fieldset>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
 
                                 <label for="profession"
                                 >{{ __('Profession ') }}</label>
@@ -142,7 +142,7 @@
                                 @enderror
 
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="country"
                                 >{{ __('Country ') }}</label>
 
@@ -156,7 +156,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-2 form-group">
                                 <label for="description">{{ __('Description ') }}</label>
                                 <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}"
                                           autocomplete="description"
