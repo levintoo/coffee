@@ -56,9 +56,6 @@ class SettingsComponent extends Component
 
     public function updateUser()
     {
-        $this->username == Auth::user()->username ? $this->username = "" :
-        $this->email == Auth::user()->email ? $this->email = "" :
-        $this->phone == Auth::user()->phone ? $this->phone = "" :
         $this->validate([
             'name' => 'string|max:255',
             'email' => 'string|email|max:25|unique:users',
