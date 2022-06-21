@@ -4,14 +4,31 @@
     <div class="container-fluid p-0">
         <div class="row m-0">
             <div class="col-12 p-0">
-                <div class="login-card h-auto">
-                    <form class="theme-form login-form" method="POST" action="{{ route('register') }}">
+                <div class="login-card">
+                    <form class="f1 theme-form login-form" method="post" action="{{ route('register') }}">
                         @csrf
                         <h4>Create your account</h4>
                         <h6>Enter your personal details to create account</h6>
-                        <div class="form-group">
-                            <label for="name">{{ __('Name') }}</label>
-                            <div class="input-group">
+                        <div class="f1-steps">
+                            <div class="f1-progress">
+                                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"></div>
+                            </div>
+                            <div class="f1-step active">
+                                <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                                <p>Personal details</p>
+                            </div>
+                            <div class="f1-step">
+                                <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                                <p>Passwords</p>
+                            </div>
+                            <div class="f1-step">
+                                <div class="f1-step-icon"><i class="fa-solid fa-info"></i></div>
+                                <p>More Info</p>
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="mb-2">
+                                <label for="name">{{ __('Name') }}</label>
                                 <input id="name" type="text"
                                        class="form-control @error('name') is-invalid @enderror" name="name"
                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -22,90 +39,97 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                            <div class="mb-2">
+                                <label for="username">{{ __('Username') }}</label>
 
-                        <div class="form-group">
-                            <label for="username">{{ __('Username') }}</label>
-
-                            <div class="input-group">
-
-                                <input id="username" type="text"
-                                       class="form-control @error('username') is-invalid @enderror" name="username"
-                                       value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">{{ __('Phone') }}</label>
-
-                            <div class="input-group">
-                                <span class="input-group-text text-muted">+254</span>
-
-                                <input id="phone" type="text"
-                                       class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                       value="{{ old('phone') }}" required autocomplete="phone" autofocus>
-
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="country"
-                            >{{ __('Country ') }}</label>
-
-                            <div class="input-group">
-
-                                <select id="country" type="text"
-                                       class="form-control @error('country') is-invalid @enderror" name="country" required autocomplete="country" autofocus>
-                                    <option value="kenya">Kenya</option>
-                                </select>
-                                @error('country')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">{{ __('Description ') }}</label>
-
-                            <div class="input-group">
-
-                                <textarea id="description"
-                                          class="form-control @error('description') is-invalid @enderror"
-                                          name="description" value="{{ old('description') }}"
-                                          autocomplete="description"
-                                          autofocus>
-                                </textarea>
                                 <div class="input-group">
-                                <span id="characterLeft" class="invalid-feedback" role="alert">
-                                    </span>
-                                </div>
-                                @error('description')
-                                <span class="invalid-feedback" role="alert">
+
+                                    <input id="username" type="text"
+                                           class="form-control @error('username') is-invalid @enderror" name="username"
+                                           value="{{ old('username') }}" required autocomplete="username" autofocus>
+
+                                    @error('username')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-2">
+                                <label for="email"
+                                >{{ __('Email Address') }}</label>
 
-                        <div class="form-group">
-                            <label for="profession"
-                            >{{ __('Profession ') }}</label>
+                                <div class="input-group">
 
-                            <div class="input-group">
+                                    <input id="email" type="email"
+                                           class="form-control @error('email') is-invalid @enderror" name="email"
+                                           value="{{ old('email') }}" autocomplete="email">
 
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="f1-buttons my-2">
+                                <button class="btn btn-primary btn-next" type="button">Next</button>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="mb-2">
+                                <label for="phone">{{ __('Phone') }}</label>
+
+                                <div class="input-group">
+                                    {{--                                    <span class="input-group-text text-muted">+254</span>--}}
+
+                                    <input id="phone" type="text"
+                                           class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                           value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                    @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="password">{{ __('Password') }}</label>
+
+                                <div class="input-group">
+
+                                    <input id="password" type="password"
+                                           class="form-control @error('password') is-invalid @enderror" name="password"
+                                           autocomplete="new-password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
+
+                                <div class="input-group">
+
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" autocomplete="new-password">
+                                </div>
+                            </div>
+                            <div class="f1-buttons my-2">
+                                <button class="btn btn-primary btn-previous" style="float: left !important;" type="button">Previous</button>
+                                <button class="btn btn-primary btn-next" style="float: right !important;" type="button">Next</button>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="mb-2">
+
+                                <label for="profession"
+                                >{{ __('Profession ') }}</label>
                                 <input id="profession" type="text"
                                        class="form-control @error('profession') is-invalid @enderror"
                                        name="profession" value="{{ old('profession') }}"
@@ -116,80 +140,48 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
                             </div>
-                        </div>
+                            <div class="mb-2">
+                                <label for="country"
+                                >{{ __('Country ') }}</label>
 
-                        <div class="form-group">
-                            <label for="email"
-                            >{{ __('Email Address') }}</label>
-
-                            <div class="input-group">
-
-                                <input id="email" type="email"
-                                       class="form-control @error('email') is-invalid @enderror" name="email"
-                                       value="{{ old('email') }}" autocomplete="email">
-
-                                @error('email')
+                                <select id="country" type="text"
+                                        class="form-control @error('country') is-invalid @enderror" name="country" required autocomplete="country" autofocus>
+                                    <option value="kenya">Kenya</option>
+                                </select>
+                                @error('country')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">{{ __('Password') }}</label>
-
-                            <div class="input-group">
-
-                                <input id="password" type="password"
-                                       class="form-control @error('password') is-invalid @enderror" name="password"
-                                        autocomplete="new-password">
-
-                                @error('password')
+                            <div class="mb-2">
+                                <label for="description">{{ __('Description ') }}</label>
+                                <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}"
+                                          autocomplete="description"
+                                          autofocus>
+                                </textarea>
+                                <span id="characterLeft" class="text-primary" role="alert">
+                                   gg </span>
+                                @error('description')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-
-                            <div class="input-group">
-
-                                <input id="password-confirm" type="password" class="form-control"
-                                       name="password_confirmation" autocomplete="new-password">
+                            <div class="f1-buttons  my-2">
+                                <button class="btn btn-primary btn-previous" style="float: left !important;" type="button">Previous</button>
+                                <button class="btn btn-primary btn-submit" style="float: right !important;" type="submit">Submit</button>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <input id="checkbox1" type="checkbox">
-                                <label class="text-muted" for="checkbox1">Agree with
-                                    <span>Privacy Policy                   </span></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button id="btnSubmit" class="btn btn-primary btn-block" type="submit">Create Account</button>
-                        </div>
-                        <div class="login-social-title">
+                        </fieldset>
+                        <div class="login-social-title mt-3">
                             <h5>signup with</h5>
                         </div>
-                        <div class="form-group">
-                            <ul class="login-social">
-                                <li><a href="https://www.linkedin.com/login" target="_blank"><i
-                                            data-feather="linkedin"></i></a></li>
-                                <li><a href="https://twitter.com/" target="_blank"><i data-feather="twitter"></i></a>
-                                </li>
-                                <li><a href="https://www.facebook.com/" target="_blank"><i data-feather="facebook"></i></a>
-                                </li>
-                                <li><a href="https://www.instagram.com/login" target="_blank"><i
-                                            data-feather="instagram"> </i></a></li>
-                            </ul>
-                        </div>
-                        <p>Already have an account?<a class="ms-2" href="{{ route('login') }}">Sign in</a></p>
+                        <p>Already have an account?<a class="ms-2" href="#">Sign in</a></p>
+
                     </form>
+
                 </div>
             </div>
         </div>
@@ -197,6 +189,8 @@
 @endsection
 
 @section('scripts')
+    <script src="../assets/js/jquery-3.5.1.min.js"></script>
+    <script src="../assets/js/form-wizard/form-wizard-three.js"></script>
     <script>
         $(document).ready(function(){
             $('#characterLeft').text('255 characters left');
