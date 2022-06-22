@@ -19,6 +19,7 @@ class Donate extends Component
     public $name;
     public $other_amount;
     public $payment_method;
+    public $input_phone;
     public function mount($username)
     {
         $this->name = $username;
@@ -41,19 +42,20 @@ class Donate extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName,[
-            'other_amount' => 'required|numeric|min:100',
+            'other_amount' => 'required|numeric',
             'payment_method' => 'required|string|max:10',
-            'input_name' => 'string|max:255',
+//            'input_name' => 'string|max:255',
             'input_message' => 'string|max:2550',
+            'input_phone' => 'string|max:2550',
         ]);
     }
 
     public function donate()
     {
         $this->validate([
-            'other_amount' => 'required|numeric|min:100',
+            'other_amount' => 'required|numeric',
             'payment_method' => 'required|string|max:10',
-            'input_name' => 'string|max:255',
+//            'input_name' => 'string|max:255',
             'input_message' => 'string|max:2550',
         ]);
         if($this->payment_method == "mpesa")
@@ -66,21 +68,23 @@ class Donate extends Component
         }
         else
         {
-            session::flash('status',"please input the payment method");
+            session::flash('status',"Please select your preferred payment method");
         }
     }
 
     public function donateMpesa()
     {
         $this->validate([
-            'other_amount' => 'required|numeric|min:100',
+            'other_amount' => 'required|numeric',
             'payment_method' => 'required|string|max:10',
-            'input_name' => 'string|max:255',
+//            'input_name' => 'string|max:255',
             'input_message' => 'string|max:2550',
+            'input_phone' => 'string|max:2550',
         ]);
         $user = User::where('username',$this->name)->select('phone','email','userid')->first();
         if(empty($user))
         {
+            $this->closeModal();
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
                 'title'=> "Oops!",
@@ -94,6 +98,7 @@ class Donate extends Component
         $wallet = Wallet::select('balance','userid')->where('userid',$user->userid)->first();
         if(empty($wallet))
         {
+            $this->closeModal();
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
                 'title'=> "Oops!",
@@ -125,7 +130,7 @@ class Donate extends Component
                 'mode_of_payment' => $this->payment_method,
                 'amount' => $this->other_amount,
                 'donated_at' => Carbon::now(),
-                'name' => $this->input_name,
+                'name' => "",
                 'message' => $this->input_message,
                 'status' => '2',
             ]);
@@ -135,13 +140,16 @@ class Donate extends Component
                 'message' => 'You have a donation',
                 'status' => '0',
             ]);
-            $this->dispatchBrowserEvent('swal:modal',[
-                'type' => "warning",
-                'title'=> "Good job!",
-                'text'=> "You successfully donated $$this->other_amount to $this->name!",
-                'icon'=> "success",
-                'button'=> "close!",
-            ]);
+            $this->closeModal();
+//
+//            $this->dispatchBrowserEvent('swal:modal',[
+//                'type' => "warning",
+//                'title'=> "Good job!",
+//                'text'=> "You successfully donated $$this->other_amount to $this->name!",
+//                'icon'=> "success",
+//                'button'=> "close!",
+//            ]);
+            return redirect()->route('thank-you');
         }
     }
 
@@ -149,14 +157,15 @@ class Donate extends Component
     public function donatePaypal()
     {
         $this->validate([
-            'other_amount' => 'required|numeric|min:100',
+            'other_amount' => 'required|numeric',
             'payment_method' => 'required|string|max:10',
-            'input_name' => 'string|max:255',
+//            'input_name' => 'string|max:255',
             'input_message' => 'string|max:2550',
         ]);
         $user = User::where('username',$this->name)->select('phone','email','userid')->first();
         if(empty($user))
         {
+            $this->closeModal();
             $this->dispatchBrowserEvent('swal:modal',[
                 'type' => "warning",
                 'title'=> "Oops!",
@@ -170,6 +179,7 @@ class Donate extends Component
             $wallet = Wallet::select('balance','userid')->where('userid',$user->userid)->first();
             if(empty($wallet))
             {
+                $this->closeModal();
                 $this->dispatchBrowserEvent('swal:modal',[
                     'type' => "warning",
                     'title'=> "Oops!",
@@ -202,7 +212,7 @@ class Donate extends Component
                     'amount' => $this->other_amount,
                     'donated_at' => Carbon::now(),
                     'status' => '2',
-                    'name' => $this->input_name,
+                    'name' => "",
                     'message' => $this->input_message,
                 ]);
                 $noty = Notification::create([
@@ -211,6 +221,7 @@ class Donate extends Component
                     'message' => 'You have a donation',
                     'status' => '0',
                 ]);
+                $this->closeModal();
 //                $this->dispatchBrowserEvent('swal:modal',[
 //                    'type' => "warning",
 //                    'title'=> "Good job!",
@@ -222,5 +233,13 @@ class Donate extends Component
             }
         }
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function closeModal()
+    {
+        $this->dispatchBrowserEvent('close-modal');
     }
 }

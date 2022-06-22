@@ -339,6 +339,8 @@
 <script src="{{ asset('assets/js/typeahead-search/handlebars.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead-search/typeahead-custom.js') }}"></script>
 <script src="{{ asset('assets/js/height-equal.js') }}"></script>
+<script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
+
 <!-- Plugins JS Ends-->
 <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 <!-- login js-->

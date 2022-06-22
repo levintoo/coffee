@@ -149,7 +149,7 @@
             <h1>Thank you !</h1>
             <p>Thanks for donating some dollars.  </p>
             <p>you should receive a confirmation email soon  </p>
-            <a class="btn btn-primary" href="{{ route('/') }}">
+            <a class="btn btn-primary mt-4" href="{{ route('/') }}">
                 Go Home
             </a>
         </div>
