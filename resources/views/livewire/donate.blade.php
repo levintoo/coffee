@@ -1,5 +1,5 @@
 @push('styles')
-<style>
+    <style>
     .image img {
         transition: all 0.5s;
     }
@@ -79,7 +79,7 @@
                 </div>
                 @endif
                 @if($user->description)
-                <div class="text mt-3 col-12">
+                <div class="text col-12">
                     <span>
                         </br>
                         {{ $user->description}}
@@ -98,67 +98,67 @@
                     </span>
                 </div>
 
-                <form id="donateFrm" class="w-100">
-                    @csrf
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+{{--                <form id="donateFrm" class="w-100">--}}
+{{--                    @csrf--}}
+{{--                    @if (session('status'))--}}
+{{--                    <div class="alert alert-success" role="alert">--}}
+{{--                        {{ session('status') }}--}}
+{{--                    </div>--}}
+{{--                    @endif--}}
 
-                    <div class="col-12">
-                        <label class="fs-5">Amount</label>
-                        <input id="donateAmountOther" name="other_amount" type="number" class="form-control custom-control h-100 @error('other_amount') is-invalid @enderror" maxlength="10" placeholder="Amount" wire:model="other_amount">
-                        @error('other_amount')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="fs-5">Method of payment</label>
-                        <select id="donatePaymentMethod" class="form-control custom-control h-100 @error('payment_method') is-invalid @enderror" wire:model="payment_method">
-                            <option value="">select</option>
-                            <option value="mpesa">mpesa</option>
-                            <option value="paypal">paypal</option>
-                        </select>
-                        @error('payment_method')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="fs-5">Your name</label>
-                        <input id="donatePaymentMethod" class="form-control custom-control h-100 @error('input_name') is-invalid @enderror" wire:model="input_name" placeholder="John Doe">
-                        @error('input_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="fs-5">Say something nice</label>
-                        <textarea id="donatePaymentMethod" class="form-control custom-control h-100 @error('input_message') is-invalid @enderror" wire:model="input_message" placeholder="Write a message here"></textarea>
-                        @error('input_message')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <!-- <div class="form-group mt-2">
-                        <button id="donateBtnStep1" type="submit" class="btn btn-large btn-orange text-uppercase frm-step-btn" data-step="1">Next
-                        </button>
-                    </div> -->
+{{--                    <div class="col-12">--}}
+{{--                        <label class="fs-5">Amount</label>--}}
+{{--                        <input id="donateAmountOther" name="other_amount" type="number" class="form-control custom-control h-100 @error('other_amount') is-invalid @enderror" maxlength="10" placeholder="Amount" wire:model="other_amount">--}}
+{{--                        @error('other_amount')--}}
+{{--                        <span class="invalid-feedback" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                    <div class="form-group mt-2">--}}
+{{--                        <label class="fs-5">Method of payment</label>--}}
+{{--                        <select id="donatePaymentMethod" class="form-control custom-control h-100 @error('payment_method') is-invalid @enderror" wire:model="payment_method">--}}
+{{--                            <option value="">select</option>--}}
+{{--                            <option value="mpesa">mpesa</option>--}}
+{{--                            <option value="paypal">paypal</option>--}}
+{{--                        </select>--}}
+{{--                        @error('payment_method')--}}
+{{--                        <span class="invalid-feedback" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                    <div class="form-group mt-2">--}}
+{{--                        <label class="fs-5">Your name</label>--}}
+{{--                        <input id="donatePaymentMethod" class="form-control custom-control h-100 @error('input_name') is-invalid @enderror" wire:model="input_name" placeholder="John Doe">--}}
+{{--                        @error('input_name')--}}
+{{--                        <span class="invalid-feedback" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                    <div class="form-group mt-2">--}}
+{{--                        <label class="fs-5">Say something nice</label>--}}
+{{--                        <textarea id="donatePaymentMethod" class="form-control custom-control h-100 @error('input_message') is-invalid @enderror" wire:model="input_message" placeholder="Write a message here"></textarea>--}}
+{{--                        @error('input_message')--}}
+{{--                        <span class="invalid-feedback" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                    <!-- <div class="form-group mt-2">--}}
+{{--                        <button id="donateBtnStep1" type="submit" class="btn btn-large btn-orange text-uppercase frm-step-btn" data-step="1">Next--}}
+{{--                        </button>--}}
+{{--                    </div> -->--}}
 
-                </form>
+{{--                </form>--}}
                 <div class="d-flex mt-3">
                     <button type="button" class="btn1 btn-dark" wire:click.prevent="donate">Donate</button>
                 </div>
-
-            </div>
+                </div>
         </div>
     </div>
+
 
     <footer id="footer">
         <div class="section-inner">
@@ -175,7 +175,7 @@
     </footer>
 </main>
 @push('scripts')
-<script>
+    <script>
     window.addEventListener('swal:modal', event => {
         swal.fire({
             title: event.detail.title,

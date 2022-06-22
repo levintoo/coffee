@@ -211,13 +211,14 @@ class Donate extends Component
                     'message' => 'You have a donation',
                     'status' => '0',
                 ]);
-                $this->dispatchBrowserEvent('swal:modal',[
-                    'type' => "warning",
-                    'title'=> "Good job!",
-                    'text'=> "You successfully donated $$this->other_amount to $this->name!",
-                    'icon'=> "success",
-                    'button'=> "close!",
-                ]);
+//                $this->dispatchBrowserEvent('swal:modal',[
+//                    'type' => "warning",
+//                    'title'=> "Good job!",
+//                    'text'=> "You successfully donated $$this->other_amount to $this->name!",
+//                    'icon'=> "success",
+//                    'button'=> "close!",
+//                ]);
+                return redirect()->route('thank-you');
             }
         }
 
