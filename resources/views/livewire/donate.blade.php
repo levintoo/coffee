@@ -51,6 +51,7 @@
             background-color: #ccc
         }
     </style>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}"></script>
 @endpush
 <div class="container-fluid p-0">
     <div class="row">
@@ -76,6 +77,12 @@
                         {{ $user->description}}
                     </span>
                             </div>
+                            @if(session('error'))
+                                {{ session('error') }}
+                            @endif
+                            @if(session('success'))
+                                {{ session('success') }}
+                            @endif
                         @endif
                         <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
                             <span><i class="fa fa-twitter"></i></span>
@@ -145,6 +152,11 @@
                                             @enderror
                                         </div>
                                     @endif
+                                        @if($this->payment_method == "paypal")
+                                            Currently working on this
+                                        <a class="btn btn-primary m-3" href="{{ route('processTransaction') }}">Pay $1000</a>
+
+                                    @endif
                                     <div class="mb-3">
                                         <label class="col-form-label">Name:</label>
                                         <input class="form-control" type="text" wire:model="input_name">
@@ -164,10 +176,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label class="col-form-label" for="message-text">Paypal:</label>
-                                        <input  class="btn btn-secondary" type="button" value="Paypal">
-                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer">

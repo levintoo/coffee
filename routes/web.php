@@ -69,6 +69,11 @@ Route::middleware('auth')->group(function () {
 
     });
 });
+
+Route::get('create-transaction', [PaypalPaymentController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction', [PaypalPaymentController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PaypalPaymentController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PaypalPaymentController::class, 'cancelTransaction'])->name('cancelTransaction');
 Route::post('/post/post', function (Request $request){
     return $request;
 })->name('post');

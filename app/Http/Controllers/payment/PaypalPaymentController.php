@@ -4,82 +4,96 @@ namespace App\Http\Controllers\payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaypalPaymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * create transaction.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function createTransaction()
     {
-        //
+        return redirect('/admin');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * process transaction.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function processTransaction(Request $request)
     {
-        //
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+
+        $response = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('successTransaction'),
+                "cancel_url" => route('cancelTransaction'),
+            ],
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => "10.00"
+                    ]
+                ]
+            ]
+        ]);
+        if (isset($response['id']) && $response['id'] != null) {
+
+            // redirect to approve href
+            foreach ($response['links'] as $links) {
+                if ($links['rel'] == 'approve') {
+                    return redirect()->away($links['href']);
+                }
+            }
+
+            return redirect()
+                ->route('createTransaction')
+                ->with('error', 'Something went wrong.');
+
+        } else {
+            return redirect()
+                ->route('createTransaction')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * success transaction.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function successTransaction(Request $request)
     {
-        //
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+
+        return $response;
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            return redirect('/admin')
+                ->with('success', 'Transaction complete.');
+        } else {
+            return redirect('/admin')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
     }
 
     /**
-     * Display the specified resource.
+     * cancel transaction.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function cancelTransaction(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('/admin')
+            ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 }
